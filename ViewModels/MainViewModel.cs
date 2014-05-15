@@ -9,41 +9,49 @@ namespace WikiSpeak.ViewModels
 	{
 		public MainViewModel()
 		{
-			this.Items = new ObservableCollection<ItemViewModel>();
-			this.Articles = new ObservableCollection<ArticleViewModel>();
 		}
 
 		/// <summary>
 		/// The collection of articles
 		/// </summary>
-		public ObservableCollection<ArticleViewModel> Articles { get; private set; }
+		public ObservableCollection<ArticleViewModel> Articles
+        {
+            get
+            {
+                return _articles;
+            }
+            set
+            {
+                ObservableCollection<ArticleViewModel> currentValue = _articles;
+                if (value != currentValue)
+                {
+                    _articles = value;
+                    NotifyPropertyChanged("Articles");
+                }
+            }
+        }
+        private ObservableCollection<ArticleViewModel> _articles = new ObservableCollection<ArticleViewModel>();
 
-
-		/// <summary>
-		/// A collection for ItemViewModel objects.
+        /// <summary>
+		/// Currently playing article title
 		/// </summary>
-		public ObservableCollection<ItemViewModel> Items { get; private set; }
-
-		private string _sampleProperty = "Sample Runtime Property Value";
-		/// <summary>
-		/// Sample ViewModel property; this property is used in the view to display its value using a Binding
-		/// </summary>
-		/// <returns></returns>
-		public string SampleProperty
+        public string CurrentArticleTitle
 		{
 			get
 			{
-				return _sampleProperty;
+                return _currentArticleTitle;
 			}
 			set
 			{
-				if (value != _sampleProperty)
+                string currentValue = _currentArticleTitle;
+				if (value != currentValue)
 				{
-					_sampleProperty = value;
-					NotifyPropertyChanged("SampleProperty");
+                    _currentArticleTitle = value;
+                    NotifyPropertyChanged("CurrentArticleTitle");
 				}
 			}
 		}
+        private string _currentArticleTitle = string.Empty;
 
 		/// <summary>
 		/// Sample property that returns a localized string
@@ -56,6 +64,19 @@ namespace WikiSpeak.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Sample property that returns a localized string
+		/// </summary>
+		public Uri ArticleViewToggleButtonIconUri
+		{
+			get
+			{
+                return new Uri("/Assets/Icons/Dark/edittext.png", UriKind.RelativeOrAbsolute); // Text="article text"/>
+                //<shell:ApplicationBarIconButton IconUri="/Assets/Icons/Dark/manage.png" Text="article list"/>
+			}
+		}
+
+
 		public bool IsDataLoaded
 		{
 			get;
@@ -67,23 +88,14 @@ namespace WikiSpeak.ViewModels
 		/// </summary>
 		public void LoadData()
 		{
-			// Sample data; replace with real data
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime one", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu" });
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime two", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus" });
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime three", LineTwo = "Habitant inceptos interdum lobortis", LineThree = "Habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu suscipit torquent" });
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime four", LineTwo = "Nascetur pharetra placerat pulvinar", LineThree = "Ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos" });
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime five", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur" });
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime six", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Pharetra placerat pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent" });
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime seven", LineTwo = "Habitant inceptos interdum lobortis", LineThree = "Accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat" });
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime eight", LineTwo = "Nascetur pharetra placerat pulvinar", LineThree = "Pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum" });
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime nine", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu" });
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime ten", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus" });
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime eleven", LineTwo = "Habitant inceptos interdum lobortis", LineThree = "Habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu suscipit torquent" });
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime twelve", LineTwo = "Nascetur pharetra placerat pulvinar", LineThree = "Ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos" });
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime thirteen", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur" });
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime fourteen", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Pharetra placerat pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent" });
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime fifteen", LineTwo = "Habitant inceptos interdum lobortis", LineThree = "Accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat" });
-			this.Items.Add(new ItemViewModel() { LineOne = "runtime sixteen", LineTwo = "Nascetur pharetra placerat pulvinar", LineThree = "Pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum" });
+			this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti", "en") { Title = "first", Excerpt = "Excerpt of article 1" } });
+            this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti2", "en") { Title = "second", Excerpt = "Excerpt of article 2" } });
+            this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti", "en") { Title = "third", Excerpt = "Excerpt of article 1" } });
+            this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti2", "en") { Title = "fourth", Excerpt = "Excerpt of article 2" } });
+            this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti", "en") { Title = "fifth", Excerpt = "Excerpt of article 1" } });
+            this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti2", "en") { Title = "seventh", Excerpt = "Excerpt of article 2" } });
+            this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti", "en") { Title = "eight", Excerpt = "Excerpt of article 1" } });
+            this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti2", "en") { Title = "ninth", Excerpt = "Excerpt of article 2" } });
 
 			this.IsDataLoaded = true;
 		}

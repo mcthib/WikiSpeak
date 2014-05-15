@@ -6,6 +6,8 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:wikispeak="clr-namespace:WikiSpeak"
     mc:Ignorable="d"
     d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -13,6 +15,48 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
+    <phone:PhoneApplicationPage.Resources>
+        <Style x:Name="ListHeaderFadeDarkTheme" TargetType="Border">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                        <GradientStop Color="#00000000" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Name="ListFooterFadeDarkTheme" TargetType="Border">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#00000000" Offset="0"/>
+                        <GradientStop Color="#FFFFFFFF" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Name="ListHeaderFadeLightTheme" TargetType="Border">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#FF000000" Offset="0"/>
+                        <GradientStop Color="#00000000" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Name="ListFooterFadeLightTheme" TargetType="Border">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#00000000" Offset="0"/>
+                        <GradientStop Color="#FF000000" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -37,60 +81,65 @@
          -->
 
         <!--Pivot Control-->
-        <phone:Pivot Title="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}">
-            <!--Pivot item one-->
-            <phone:PivotItem Header="{Binding Path=LocalizedResources.PivotItemHeaderArticles, Source={StaticResource LocalizedStrings}}">
-                <!--Double line list with text wrapping-->
-                <phone:LongListSelector Margin="0,0,-12,0" ItemsSource="{Binding Articles}">
-                    <phone:LongListSelector.ItemTemplate>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="PlayBar" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="CurrentArticle" Text="{Binding CurrentArticleTitle}"/>
+                <Button x:Name="ButtonRewind" Grid.Row="1" Grid.Column="0">
+                    <Grid>
+                        <Image Source="/Assets/Icons/Dark/transport.rew.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneDarkThemeVisibility}"/>
+                        <Image Source="/Assets/Icons/Light/transport.rew.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneLightThemeVisibility}"/>
+                    </Grid>
+                </Button>
+                <Button x:Name="ButtonPlayPause" Grid.Row="1" Grid.Column="1">
+                    <Grid>
+                        <Image Source="/Assets/Icons/Dark/transport.play.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneDarkThemeVisibility}"/>
+                        <Image Source="/Assets/Icons/Light/transport.play.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneLightThemeVisibility}"/>
+                        <Image Source="/Assets/Icons/transport.pause.png" Visibility="Collapsed"/>
+                    </Grid>
+                </Button>
+                <Button x:Name="ButtonForward" Grid.Row="1" Grid.Column="2">
+                    <Grid>
+                        <Image Source="/Assets/Icons/Dark/transport.ff.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneDarkThemeVisibility}"/>
+                        <Image Source="/Assets/Icons/Light/transport.ff.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneLightThemeVisibility}"/>
+                    </Grid>
+                </Button>
+            </Grid>
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
+                <toolkit:LongListMultiSelector Margin="0,0,-12,0" ItemsSource="{Binding Articles}" SelectionChanged="LongListSelector_SelectionChanged" toolkit:TiltEffect.IsTiltEnabled="True" x:Name="ArticleList">
+                    <toolkit:LongListMultiSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,0,0,17">
-                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                <TextBlock Text="{Binding Excerpt}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                            </StackPanel>
+                            <wikispeak:ArticleUserControl Tap="ArticleUserControl_Tap" />
                         </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
-            </phone:PivotItem>
-
-            <!--Pivot item two-->
-            <phone:PivotItem Header="{Binding Path=LocalizedResources.PivotItemHeaderNowPlaying, Source={StaticResource LocalizedStrings}}">
-                <!--Double line list no text wrapping-->
-                <phone:LongListSelector Margin="0,0,-12,0" ItemsSource="{Binding Items}">
-                    <phone:LongListSelector.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="0,0,0,17">
-                                    <TextBlock Text="{Binding LineOne}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                    <TextBlock Text="{Binding LineThree}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
-            </phone:PivotItem>
-
-            <phone:PivotItem Header="{Binding Path=LocalizedResources.PivotItemHeaderSettings, Source={StaticResource LocalizedStrings}}">
-                <!--Double line list no text wrapping-->
-                <phone:LongListSelector Margin="0,0,-12,0" ItemsSource="{Binding Items}">
-                    <phone:LongListSelector.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,0,0,17">
-                                <TextBlock Text="{Binding LineOne}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                <TextBlock Text="{Binding LineThree}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
-            </phone:PivotItem>
-
-        </phone:Pivot>
-
-        <!--Uncomment to see an alignment grid to help ensure your controls are
-            aligned on common boundaries.  The image has a top margin of -32px to
-            account for the System Tray. Set this to 0 (or remove the margin altogether)
-            if the System Tray is hidden.
-
-            Before shipping remove this XAML and the image itself.-->
-        <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0,-32,0,0" Grid.Row="0" IsHitTestVisible="False" />-->
+                    </toolkit:LongListMultiSelector.ItemTemplate>
+                </toolkit:LongListMultiSelector>
+            </Grid>
+            <Border Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="25" Style="{StaticResource ListHeaderFadeDarkTheme}" Visibility="{Binding PhoneDarkThemeVisibility}"/>
+            <Border Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="25" Style="{StaticResource ListFooterFadeDarkTheme}" Visibility="{Binding PhoneDarkThemeVisibility}"/>
+            <Border Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="25" Style="{StaticResource ListHeaderFadeLightTheme}" Visibility="{Binding PhoneLightThemeVisibility}"/>
+            <Border Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="25" Style="{StaticResource ListFooterFadeLightTheme}" Visibility="{Binding PhoneLightThemeVisibility}"/>
+        </Grid>
     </Grid>
 
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar Mode="Default" Opacity="1.0" IsMenuEnabled="True" IsVisible="True">
+            <shell:ApplicationBarIconButton IconUri="/Assets/Icons/Dark/new.png" Text="add article" x:Name="AddArticle" Click="AddArticle_Click"/>
+            <shell:ApplicationBarIconButton IconUri="{Binding ArticleViewToggleButtonIconUri}" Text="article text"/>
+            <shell:ApplicationBarIconButton IconUri="/Assets/Icons/Dark/manage.png" Text="article list"/>
+            <shell:ApplicationBarIconButton IconUri="/Assets/Icons/Dark/feature.settings.png" Text="settings"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+    
 </phone:PhoneApplicationPage>

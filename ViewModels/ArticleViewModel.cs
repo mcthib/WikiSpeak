@@ -12,6 +12,8 @@ namespace WikiSpeak.ViewModels
 {
 	public class ArticleViewModel : INotifyPropertyChanged
 	{
+
+
 		/// <summary>
 		/// Uhnderlying article object
 		/// </summary>
@@ -23,15 +25,41 @@ namespace WikiSpeak.ViewModels
 			}
 			set
 			{
-				if (_article != value)
+				Article previousArticle = _article;
+				Article newArticle = value;
+
+				if (previousArticle != newArticle)
 				{
-					_article = value;
+
+					if (previousArticle != null)
+					{
+						previousArticle.ContentChanged -= Article_ContentChanged;
+					}
+
+					_article = newArticle;
+
+					if (newArticle != null)
+					{
+						newArticle.ContentChanged += Article_ContentChanged;
+					}
+
 					NotifyPropertyChanged("Title");
 					NotifyPropertyChanged("Excerpt");
 				}
 			}
 		}
 		private Article _article;
+
+		/// <summary>
+		/// Handler for when the content of the article has changed
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		void Article_ContentChanged(object sender, ArticleContentChangedEventArgs e)
+		{
+			NotifyPropertyChanged("Title");
+			NotifyPropertyChanged("Excerpt");
+		}
 
 		/// <summary>
 		/// Gets the title of the article
