@@ -117,13 +117,28 @@ namespace WikiSpeak
         }
 
         /// <summary>
+        /// Handles the event where a user article's play button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ArticleUserControl_Play(object sender, EventArgs e)
+        {
+            ArticleUserControl article = sender as ArticleUserControl;
+            if (article != null)
+            {
+                App.ViewModel.CurrentArticleTitle = (article.DataContext as ViewModels.ArticleViewModel).Title;
+            }
+        }
+
+        /// <summary>
         /// Handler for the Add Article app bar button being clicked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void AddArticle_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/AddArticle.xaml", UriKind.RelativeOrAbsolute));
+            //NavigationService.Navigate(new Uri("/AddArticle.xaml", UriKind.RelativeOrAbsolute));
+            txt.Select(5, 6);
         }
 
 		// Sample code for building a localized ApplicationBar

@@ -15,51 +15,12 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
-    <phone:PhoneApplicationPage.Resources>
-        <Style x:Name="ListHeaderFadeDarkTheme" TargetType="Border">
-            <Setter Property="Background">
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="#FFFFFFFF" Offset="0"/>
-                        <GradientStop Color="#00000000" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Name="ListFooterFadeDarkTheme" TargetType="Border">
-            <Setter Property="Background">
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="#00000000" Offset="0"/>
-                        <GradientStop Color="#FFFFFFFF" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Name="ListHeaderFadeLightTheme" TargetType="Border">
-            <Setter Property="Background">
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="#FF000000" Offset="0"/>
-                        <GradientStop Color="#00000000" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Name="ListFooterFadeLightTheme" TargetType="Border">
-            <Setter Property="Background">
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="#00000000" Offset="0"/>
-                        <GradientStop Color="#FF000000" Offset="1"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="/Assets/background.jpg"/>
+        </Grid.Background>
 
         <!-- LOCALIZATION NOTE:
             To localize the displayed strings copy their values to appropriately named
@@ -86,60 +47,70 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid x:Name="PlayBar" Grid.Row="0">
+            <Grid x:Name="PlayBar" Grid.Row="0" Background="#20FFFFFF">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="100"/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock x:Name="CurrentArticle" Text="{Binding CurrentArticleTitle}"/>
-                <Button x:Name="ButtonRewind" Grid.Row="1" Grid.Column="0">
-                    <Grid>
-                        <Image Source="/Assets/Icons/Dark/transport.rew.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneDarkThemeVisibility}"/>
-                        <Image Source="/Assets/Icons/Light/transport.rew.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneLightThemeVisibility}"/>
-                    </Grid>
-                </Button>
-                <Button x:Name="ButtonPlayPause" Grid.Row="1" Grid.Column="1">
-                    <Grid>
-                        <Image Source="/Assets/Icons/Dark/transport.play.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneDarkThemeVisibility}"/>
-                        <Image Source="/Assets/Icons/Light/transport.play.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneLightThemeVisibility}"/>
-                        <Image Source="/Assets/Icons/transport.pause.png" Visibility="Collapsed"/>
-                    </Grid>
-                </Button>
-                <Button x:Name="ButtonForward" Grid.Row="1" Grid.Column="2">
-                    <Grid>
-                        <Image Source="/Assets/Icons/Dark/transport.ff.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneDarkThemeVisibility}"/>
-                        <Image Source="/Assets/Icons/Light/transport.ff.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneLightThemeVisibility}"/>
-                    </Grid>
-                </Button>
+                <TextBlock x:Name="CurrentArticle" Grid.Row="0" Text="{Binding CurrentArticleTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri Light" FontSize="36" FontWeight="Bold"/>
+                <Grid Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="ButtonRewind" Grid.Column="0" BorderThickness="0" Width="100" Height="100" Padding="0" Margin="10,0,10,0">
+                        <Grid>
+                            <Image Source="/Assets/Icons/Dark/transport.rew.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneDarkThemeVisibility}"/>
+                            <Image Source="/Assets/Icons/Light/transport.rew.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneLightThemeVisibility}"/>
+                            <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Grid>
+                    </Button>
+                    <Button x:Name="ButtonPlayPause" Grid.Column="1" BorderThickness="0" Width="100" Height="100" Padding="0" Margin="10,0,10,0">
+                        <Grid>
+                            <Image Source="/Assets/Icons/Dark/transport.play.png" HorizontalAlignment="Center" Width="100" Visibility="{StaticResource PhoneDarkThemeVisibility}"/>
+                            <Image Source="/Assets/Icons/Light/transport.play.png" HorizontalAlignment="Center" Width="100" Visibility="{StaticResource PhoneLightThemeVisibility}"/>
+                            <Image Source="/Assets/Icons/Dark/transport.pause.png" HorizontalAlignment="Center" Width="100" Visibility="Collapsed"/>
+                            <Image Source="/Assets/Icons/Light/transport.pause.png" HorizontalAlignment="Center" Width="100" Visibility="Collapsed"/>
+                            <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Grid>
+                    </Button>
+                    <Button x:Name="ButtonForward" Grid.Column="2" BorderThickness="0" Width="100" Height="100" Padding="0" Margin="10,0,10,0">
+                        <Grid>
+                            <Image Source="/Assets/Icons/Dark/transport.ff.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneDarkThemeVisibility}"/>
+                            <Image Source="/Assets/Icons/Light/transport.ff.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneLightThemeVisibility}"/>
+                            <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Grid>
+                    </Button>
+                </Grid>
             </Grid>
+            
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
-                <toolkit:LongListMultiSelector Margin="0,0,-12,0" ItemsSource="{Binding Articles}" SelectionChanged="LongListSelector_SelectionChanged" toolkit:TiltEffect.IsTiltEnabled="True" x:Name="ArticleList">
+                <toolkit:LongListMultiSelector Margin="0,0,-12,0" ItemsSource="{Binding Articles}" SelectionChanged="LongListSelector_SelectionChanged" toolkit:TiltEffect.IsTiltEnabled="True" x:Name="ArticleList" Visibility="Collapsed">
                     <toolkit:LongListMultiSelector.ItemTemplate>
                         <DataTemplate>
-                            <wikispeak:ArticleUserControl Tap="ArticleUserControl_Tap" />
+                            <wikispeak:ArticleUserControl Tap="ArticleUserControl_Tap" PlayButtonClicked="ArticleUserControl_Play" />
                         </DataTemplate>
                     </toolkit:LongListMultiSelector.ItemTemplate>
                 </toolkit:LongListMultiSelector>
+                <RichTextBox IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Paragraph>Chaparoon
+                        <Bold>is ridin</Bold> high
+                    </Paragraph>
+                </RichTextBox>
+                <!--<TextBox x:Name="txt" Text="Chaparoon is ridin high" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" Background="Transparent" Foreground="{StaticResource PhoneForegroundBrush}" BorderThickness="0"/>-->
+                <!--<wikispeak:ScrollableTextBlock Text="your mom" />-->
             </Grid>
-            <Border Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="25" Style="{StaticResource ListHeaderFadeDarkTheme}" Visibility="{Binding PhoneDarkThemeVisibility}"/>
-            <Border Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="25" Style="{StaticResource ListFooterFadeDarkTheme}" Visibility="{Binding PhoneDarkThemeVisibility}"/>
-            <Border Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="25" Style="{StaticResource ListHeaderFadeLightTheme}" Visibility="{Binding PhoneLightThemeVisibility}"/>
-            <Border Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="25" Style="{StaticResource ListFooterFadeLightTheme}" Visibility="{Binding PhoneLightThemeVisibility}"/>
         </Grid>
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar Mode="Default" Opacity="1.0" IsMenuEnabled="True" IsVisible="True">
             <shell:ApplicationBarIconButton IconUri="/Assets/Icons/Dark/new.png" Text="add article" x:Name="AddArticle" Click="AddArticle_Click"/>
-            <shell:ApplicationBarIconButton IconUri="{Binding ArticleViewToggleButtonIconUri}" Text="article text"/>
+            <!--<shell:ApplicationBarIconButton IconUri="{Binding ArticleViewToggleButtonIconUri}" Text="article text"/>-->
             <shell:ApplicationBarIconButton IconUri="/Assets/Icons/Dark/manage.png" Text="article list"/>
             <shell:ApplicationBarIconButton IconUri="/Assets/Icons/Dark/feature.settings.png" Text="settings"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
-    
+
 </phone:PhoneApplicationPage>

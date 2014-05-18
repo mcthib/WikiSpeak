@@ -18,29 +18,24 @@ namespace WikiSpeak
         }
 
         /// <summary>
-        /// Handles the control being tapped
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LayoutRoot_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            FireTappedEvent();
-        }
-
-        /// <summary>
         /// event signalling that the item got selected
         /// </summary>
-        public event EventHandler Tapped;
+        public event EventHandler PlayButtonClicked;
 
         /// <summary>
         /// Fires the Tapped event
         /// </summary>
-        private void FireTappedEvent()
+        private void FirePlayButtonClickedEvent()
         {
-            if (Tapped != null)
+            if (PlayButtonClicked != null)
             {
-                Tapped(this, new EventArgs());
+                PlayButtonClicked(this, new EventArgs());
             }
+        }
+
+        private void PlayButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            FirePlayButtonClickedEvent();
         }
     }
 }

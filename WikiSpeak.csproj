@@ -112,6 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ScrollableTextBlock.xaml.cs" />
     <Compile Include="ViewModels\ArticleViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="WikipediaHelper.cs" />
@@ -137,6 +138,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="ScrollableTextBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -150,6 +155,7 @@
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\background.jpg" />
     <Content Include="Assets\Icons\Dark\edittext.png" />
     <Content Include="Assets\Icons\Dark\feature.settings.png" />
     <Content Include="Assets\Icons\Dark\manage.png" />
