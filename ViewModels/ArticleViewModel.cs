@@ -45,6 +45,7 @@ namespace WikiSpeak.ViewModels
 
 					NotifyPropertyChanged("Title");
 					NotifyPropertyChanged("Excerpt");
+                    NotifyPropertyChanged("TextualContents");
 				}
 			}
 		}
@@ -59,6 +60,7 @@ namespace WikiSpeak.ViewModels
 		{
 			NotifyPropertyChanged("Title");
 			NotifyPropertyChanged("Excerpt");
+            NotifyPropertyChanged("TextualContents");
 		}
 
 		/// <summary>
@@ -72,6 +74,17 @@ namespace WikiSpeak.ViewModels
 			}
 		}
 
+        /// <summary>
+        /// Gets the textual contents of the article
+        /// </summary>
+        public string TextualContents
+        {
+            get
+            {
+                return (_article != null ? _article.TextualContents : string.Empty);
+            }
+        }
+
 		/// <summary>
 		/// Gets the excerpt of the article
 		/// </summary>
@@ -82,6 +95,17 @@ namespace WikiSpeak.ViewModels
 				return (_article != null ? _article.Excerpt : string.Empty);
 			}
 		}
+
+        /// <summary>
+        /// GEts the RTB representation of the article text
+        /// </summary>
+        public string RichTextBoxRepresentation
+        {
+            get
+            {
+                return "<paragraph>this is <bold>text</bold><paragraph>";
+            }
+        }
 
 		/// <summary>
 		/// Event for property changed notification

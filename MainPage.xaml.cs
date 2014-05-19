@@ -23,6 +23,9 @@ namespace WikiSpeak
 			// Set the data context of the listbox control to the sample data
 			DataContext = App.ViewModel;
 
+            // Refresh the app bar
+            RefreshAppBar();
+
 			// Sample code to localize the ApplicationBar
 			//BuildLocalizedApplicationBar();
 		}
@@ -98,6 +101,18 @@ namespace WikiSpeak
              * */
         }
 
+        /// <summary>
+        /// Because the app bar isn't a real SilverLight control, we need to resort to this instead of clean bindings :(
+        /// </summary>
+        private void RefreshAppBar()
+        {
+            ApplicationBarIconButton articleViewListToggle = ApplicationBar.Buttons[1] as ApplicationBarIconButton;
+            if (articleViewListToggle != null)
+            {
+                articleViewListToggle.IconUri = App.ViewModel.ArticleListViewToggleIconUri;
+            }
+        }
+
         private void ArticleUserControl_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             ArticleUserControl newSelection = sender as ArticleUserControl;
@@ -126,7 +141,13 @@ namespace WikiSpeak
             ArticleUserControl article = sender as ArticleUserControl;
             if (article != null)
             {
-                App.ViewModel.CurrentArticleTitle = (article.DataContext as ViewModels.ArticleViewModel).Title;
+                App.ViewModel.CurrentArticle = (article.DataContext as ViewModels.ArticleViewModel);
+                App.ViewModel.IsArticleViewVisible = true;
+
+                // TODO
+                Article art = new Article("France", "en");
+                App.ViewModel.Articles.Add(new ViewModels.ArticleViewModel() { Article = art });
+                art.SearchAsync();
             }
         }
 
@@ -138,7 +159,17 @@ namespace WikiSpeak
         private void AddArticle_Click(object sender, EventArgs e)
         {
             //NavigationService.Navigate(new Uri("/AddArticle.xaml", UriKind.RelativeOrAbsolute));
-            txt.Select(5, 6);
+        }
+
+        /// <summary>
+        /// Handler for the app bar button that toggles between the article lsit / view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ArticleViewListToggle_Click(object sender, EventArgs e)
+        {
+            App.ViewModel.IsArticleViewVisible = !App.ViewModel.IsArticleViewVisible;
+            RefreshAppBar();
         }
 
 		// Sample code for building a localized ApplicationBar

@@ -112,6 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RichTextBoxEx.cs" />
     <Compile Include="ScrollableTextBlock.xaml.cs" />
     <Compile Include="ViewModels\ArticleViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

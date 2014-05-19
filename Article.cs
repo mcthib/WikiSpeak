@@ -134,6 +134,7 @@ namespace WikiSpeak
                     this.Status = ArticleStatus.Downloading;
                     this.TextualContents = await WikipediaHelper.DownloadWikipediaArticleAsync(articles[0]);
                     this.Status = ArticleStatus.Downloaded;
+                    FireContentChangedEvent();
                 }
                 else
                 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using WikiSpeak.Resources;
 
 namespace WikiSpeak.ViewModels
@@ -39,21 +40,103 @@ namespace WikiSpeak.ViewModels
 		{
 			get
 			{
-                return _currentArticleTitle;
-			}
-			set
-			{
-                string currentValue = _currentArticleTitle;
-				if (value != currentValue)
-				{
-                    _currentArticleTitle = value;
-                    NotifyPropertyChanged("CurrentArticleTitle");
-				}
+                return (CurrentArticle == null ? string.Empty : CurrentArticle.Title);
 			}
 		}
-        private string _currentArticleTitle = string.Empty;
 
-		/// <summary>
+        /// <summary>
+        /// Currently playing article text for the reader view
+        /// </summary>
+        public string CurrentArticleRichTextBoxRepresentation
+        {
+            get
+            {
+                return (CurrentArticle == null ? string.Empty : CurrentArticle.RichTextBoxRepresentation);
+            }
+        }
+
+        /// <summary>
+        /// Currently playing article
+        /// </summary>
+        public ArticleViewModel CurrentArticle
+        {
+            get
+            {
+                return _currentArticle;
+            }
+            set
+            {
+                ArticleViewModel currentValue = _currentArticle;
+                if (value != currentValue)
+                {
+                    _currentArticle = value;
+                    NotifyPropertyChanged("CurrentArticle");
+                    NotifyPropertyChanged("CurrentArticleTitle");
+                    NotifyPropertyChanged("CurrentArticleRichTextBoxRepresentation");
+                }
+            }
+        }
+        private ArticleViewModel _currentArticle = null;
+
+        /// <summary>
+        /// Gets the visibility of the articles list
+        /// </summary>
+        public Visibility ArticleListVisibility
+        {
+            get
+            {
+                return (IsArticleViewVisible ? Visibility.Collapsed : Visibility.Visible);
+            }
+        }
+
+        /// <summary>
+        /// Gets the visibility of the article content view
+        /// </summary>
+        public Visibility ArticleViewVisibility
+        {
+            get
+            {
+                return (IsArticleViewVisible ? Visibility.Visible : Visibility.Collapsed);
+            }
+        }
+
+        /// <summary>
+        /// Gets the icon URI for the App Bar article toggle button
+        /// </summary>
+        public Uri ArticleListViewToggleIconUri
+        {
+            get
+            {
+                return new Uri(IsArticleViewVisible ? "/Assets/Icons/Dark/manage.png" : "/Assets/Icons/Dark/edittext.png", UriKind.RelativeOrAbsolute);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets whether the article view is visible (toggle between list vs view)
+        /// </summary>
+        public bool IsArticleViewVisible
+        {
+            get
+            {
+                return _isArticleViewVisible;
+            }
+            set
+            {
+                bool oldValue = _isArticleViewVisible;
+                if (oldValue != value)
+                {
+                    _isArticleViewVisible = value;
+                    NotifyPropertyChanged("ArticleListVisibility");
+                    NotifyPropertyChanged("ArticleViewVisibility");
+
+                    // What is going on here?? Whelp, App Bars aren't real Silverlight controls. So, we need to actually do this BS here...
+                    // Doesn't work: NotifyPropertyChanged("ArticleListViewToggleIconUri");
+                }
+            }
+        }
+        private bool _isArticleViewVisible = false;
+
+        /// <summary>
 		/// Sample property that returns a localized string
 		/// </summary>
 		public string LocalizedSampleProperty
@@ -63,19 +146,6 @@ namespace WikiSpeak.ViewModels
 				return AppResources.SampleProperty;
 			}
 		}
-
-		/// <summary>
-		/// Sample property that returns a localized string
-		/// </summary>
-		public Uri ArticleViewToggleButtonIconUri
-		{
-			get
-			{
-                return new Uri("/Assets/Icons/Dark/edittext.png", UriKind.RelativeOrAbsolute); // Text="article text"/>
-                //<shell:ApplicationBarIconButton IconUri="/Assets/Icons/Dark/manage.png" Text="article list"/>
-			}
-		}
-
 
 		public bool IsDataLoaded
 		{
