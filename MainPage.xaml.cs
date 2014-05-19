@@ -21,7 +21,7 @@ namespace WikiSpeak
 			InitializeComponent();
 
 			// Set the data context of the listbox control to the sample data
-			DataContext = App.ViewModel;
+			DataContext = App.MainViewModel;
 
             // Refresh the app bar
             RefreshAppBar();
@@ -33,9 +33,9 @@ namespace WikiSpeak
 		// Load data for the ViewModel Items
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			if (!App.ViewModel.IsDataLoaded)
+			if (!App.MainViewModel.IsDataLoaded)
 			{
-				App.ViewModel.LoadData();
+				App.MainViewModel.LoadData();
 			}
 		}
 
@@ -69,39 +69,6 @@ namespace WikiSpeak
         } 
 
         /// <summary>
-        /// Handler for the selection changing in LongListSelectors. Sets the selected state on the item.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            /*
-            // Get the list of items in the LongListSelector
-            List<UserControl> listItems = new List<UserControl>();
-            GetItemsRecursive<UserControl>(sender as DependencyObject, ref listItems);
-
-            // Iterate through the list items. Select / unselect as appropriate
-            foreach (UserControl listItem in listItems)
-            {
-                foreach (var removedItem in e.RemovedItems)
-                {
-                    if (listItem.DataContext == removedItem)
-                    {
-                        VisualStateManager.GoToState(listItem, "Normal", true); 
-                    }
-                }
-                foreach (var addedItem in e.AddedItems)
-                {
-                    if (listItem.DataContext == addedItem)
-                    {
-                        bool result = VisualStateManager.GoToState(listItem, "Selected", true);
-                    }
-                }
-            }
-             * */
-        }
-
-        /// <summary>
         /// Because the app bar isn't a real SilverLight control, we need to resort to this instead of clean bindings :(
         /// </summary>
         private void RefreshAppBar()
@@ -109,7 +76,7 @@ namespace WikiSpeak
             ApplicationBarIconButton articleViewListToggle = ApplicationBar.Buttons[1] as ApplicationBarIconButton;
             if (articleViewListToggle != null)
             {
-                articleViewListToggle.IconUri = App.ViewModel.ArticleListViewToggleIconUri;
+                articleViewListToggle.IconUri = App.MainViewModel.ArticleListViewToggleIconUri;
             }
         }
 
@@ -141,12 +108,12 @@ namespace WikiSpeak
             ArticleUserControl article = sender as ArticleUserControl;
             if (article != null)
             {
-                App.ViewModel.CurrentArticle = (article.DataContext as ViewModels.ArticleViewModel);
-                App.ViewModel.IsArticleViewVisible = true;
+                App.MainViewModel.CurrentArticle = (article.DataContext as ViewModels.ArticleViewModel);
+                App.MainViewModel.IsArticleViewVisible = true;
 
                 // TODO
                 Article art = new Article("France", "en");
-                App.ViewModel.Articles.Add(new ViewModels.ArticleViewModel() { Article = art });
+                App.MainViewModel.Articles.Add(new ViewModels.ArticleViewModel() { Article = art });
                 art.SearchAsync();
             }
         }
@@ -158,7 +125,7 @@ namespace WikiSpeak
         /// <param name="e"></param>
         private void AddArticle_Click(object sender, EventArgs e)
         {
-            //NavigationService.Navigate(new Uri("/AddArticle.xaml", UriKind.RelativeOrAbsolute));
+            NavigationService.Navigate(new Uri("/AddArticle.xaml", UriKind.RelativeOrAbsolute));
         }
 
         /// <summary>
@@ -168,7 +135,7 @@ namespace WikiSpeak
         /// <param name="e"></param>
         private void ArticleViewListToggle_Click(object sender, EventArgs e)
         {
-            App.ViewModel.IsArticleViewVisible = !App.ViewModel.IsArticleViewVisible;
+            App.MainViewModel.IsArticleViewVisible = !App.MainViewModel.IsArticleViewVisible;
             RefreshAppBar();
         }
 

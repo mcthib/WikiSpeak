@@ -30,6 +30,16 @@ namespace WikiSpeak
 			/// The url where the article content is located
 			/// </summary>
 			public string Url;
+
+            /// <summary>
+            /// A short description of the article
+            /// </summary>
+            public string Description;
+
+            /// <summary>
+            /// The article locale
+            /// </summary>
+            public string Locale;
 		}
 
 		/// <summary>
@@ -75,9 +85,11 @@ namespace WikiSpeak
 					// These case-insensitive comparisons are the result of using an HTML parser to process XML...
 					HtmlAgilityPack.HtmlNode titleNode = node.Descendants().Single(x => { return string.Equals(x.Name, "text", StringComparison.OrdinalIgnoreCase); });
 					HtmlAgilityPack.HtmlNode urlNode = node.Descendants().Single(x => { return string.Equals(x.Name, "url", StringComparison.OrdinalIgnoreCase); });
+                    HtmlAgilityPack.HtmlNode descriptionNode = node.Descendants().Single(x => { return string.Equals(x.Name, "description", StringComparison.OrdinalIgnoreCase); });
 
 					string title = titleNode == null ? string.Empty : titleNode.InnerText;
 					string url = urlNode == null ? string.Empty : urlNode.InnerText;
+                    string description = descriptionNode == null ? string.Empty : descriptionNode.InnerText;
 
 					if (!string.IsNullOrWhiteSpace(title) && !string.IsNullOrWhiteSpace(url))
 					{
@@ -85,7 +97,9 @@ namespace WikiSpeak
 							new ArticleTitleAndUrl()
 							{
 								Title = title,
-								Url = url
+								Url = url,
+                                Description = description,
+                                Locale = locale
 							});
 					}
 				}

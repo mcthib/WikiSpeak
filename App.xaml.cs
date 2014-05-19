@@ -13,25 +13,41 @@ namespace WikiSpeak
 {
 	public partial class App : Application
 	{
-		private static MainViewModel viewModel = null;
-
 		/// <summary>
 		/// A static ViewModel used by the views to bind against.
 		/// </summary>
 		/// <returns>The MainViewModel object.</returns>
-		public static MainViewModel ViewModel
+		public static MainViewModel MainViewModel
 		{
 			get
 			{
 				// Delay creation of the view model until necessary
-				if (viewModel == null)
-					viewModel = new MainViewModel();
+				if (_mainViewModel == null)
+					_mainViewModel = new MainViewModel();
 
-				return viewModel;
+				return _mainViewModel;
 			}
 		}
+        private static MainViewModel _mainViewModel = null;
 
-		/// <summary>
+        /// <summary>
+        /// A static ViewModel used by the views to bind against.
+        /// </summary>
+        /// <returns>The MainViewModel object.</returns>
+        public static AddArticleViewModel AddArticleViewModel
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (_addArticleViewModel == null)
+                    _addArticleViewModel = new AddArticleViewModel();
+
+                return _addArticleViewModel;
+            }
+        }
+        private static AddArticleViewModel _addArticleViewModel = null;
+        
+        /// <summary>
 		/// Provides easy access to the root frame of the Phone Application.
 		/// </summary>
 		/// <returns>The root frame of the Phone Application.</returns>
@@ -86,9 +102,9 @@ namespace WikiSpeak
 		private void Application_Activated(object sender, ActivatedEventArgs e)
 		{
 			// Ensure that application state is restored appropriately
-			if (!App.ViewModel.IsDataLoaded)
+			if (!App.MainViewModel.IsDataLoaded)
 			{
-				App.ViewModel.LoadData();
+				App.MainViewModel.LoadData();
 			}
 		}
 

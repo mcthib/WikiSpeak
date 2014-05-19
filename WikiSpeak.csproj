@@ -115,6 +115,7 @@
     <Compile Include="RichTextBoxEx.cs" />
     <Compile Include="ScrollableTextBlock.xaml.cs" />
     <Compile Include="ViewModels\ArticleViewModel.cs" />
+    <Compile Include="ViewModels\AddArticleViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="WikipediaHelper.cs" />
   </ItemGroup>
@@ -159,8 +160,10 @@
     <Content Include="Assets\background.jpg" />
     <Content Include="Assets\Icons\Dark\edittext.png" />
     <Content Include="Assets\Icons\Dark\feature.settings.png" />
+    <Content Include="Assets\Icons\Dark\globe.png" />
     <Content Include="Assets\Icons\Dark\manage.png" />
     <Content Include="Assets\Icons\Dark\new.png" />
+    <Content Include="Assets\Icons\Dark\next.png" />
     <Content Include="Assets\Icons\Dark\transport.ff.png" />
     <Content Include="Assets\Icons\Dark\transport.pause.png" />
     <Content Include="Assets\Icons\Dark\transport.play.png" />

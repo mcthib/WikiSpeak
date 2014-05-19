@@ -114,6 +114,19 @@ namespace WikiSpeak
 			Status = ArticleStatus.Initial;
 		}
 
+        /// <summary>
+        /// C-tor
+        /// </summary>
+        /// <param name="articleTitleAndUrl">a previously found WikiPedia entry description</param>
+        public Article(WikipediaHelper.ArticleTitleAndUrl articleTitleAndUrl)
+        {
+            Title = articleTitleAndUrl.Title;
+            Url = articleTitleAndUrl.Url;
+            Excerpt = articleTitleAndUrl.Description;
+            Locale = articleTitleAndUrl.Locale;
+            Status = ArticleStatus.Found;
+        }
+
 		/// <summary>
 		/// Asynchronously searches for a matching article
 		/// </summary>

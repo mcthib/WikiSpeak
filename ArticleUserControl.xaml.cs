@@ -20,22 +20,94 @@ namespace WikiSpeak
         /// <summary>
         /// event signalling that the item got selected
         /// </summary>
-        public event EventHandler PlayButtonClicked;
+        public event EventHandler ButtonClicked;
 
         /// <summary>
         /// Fires the Tapped event
         /// </summary>
-        private void FirePlayButtonClickedEvent()
+        private void FireButtonClickedEvent()
         {
-            if (PlayButtonClicked != null)
+            if (ButtonClicked != null)
             {
-                PlayButtonClicked(this, new EventArgs());
+                ButtonClicked(this, new EventArgs());
             }
         }
 
-        private void PlayButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void Button_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            FirePlayButtonClickedEvent();
+            FireButtonClickedEvent();
+        }
+
+        
+        
+
+        public static DependencyProperty PlayButtonVisibilityDependencyProperty = DependencyProperty.Register("PlayButtonVisibility", typeof(Visibility), typeof(ArticleUserControl), new PropertyMetadata(Visibility.Collapsed, PlayButtonVisibilityChanged));
+        
+        public Visibility PlayButtonVisibility
+        {
+            get
+            {
+                return (Visibility)GetValue(PlayButtonVisibilityDependencyProperty);
+            }
+            set
+            {
+                SetValue(PlayButtonVisibilityDependencyProperty, value);
+            }
+        }
+
+        public static void PlayButtonVisibilityChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            ArticleUserControl control = dependencyObject as ArticleUserControl;
+            if (control != null)
+            {
+                control.PlayIcon.Visibility = (Visibility)(dependencyPropertyChangedEventArgs.NewValue);
+            }
+        }
+
+        public static DependencyProperty AddButtonVisibilityDependencyProperty = DependencyProperty.Register("AddButtonVisibility", typeof(Visibility), typeof(ArticleUserControl), new PropertyMetadata(Visibility.Collapsed, AddButtonVisibilityChanged));
+
+        public static void AddButtonVisibilityChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            ArticleUserControl control = dependencyObject as ArticleUserControl;
+            if (control != null)
+            {
+                control.AddIcon.Visibility = (Visibility)(dependencyPropertyChangedEventArgs.NewValue);
+            }
+        }
+
+        public Visibility AddButtonVisibility
+        {
+            get
+            {
+                return (Visibility)GetValue(AddButtonVisibilityDependencyProperty);
+            }
+            set
+            {
+                SetValue(AddButtonVisibilityDependencyProperty, value);
+            }
+        }
+
+        public static DependencyProperty ExcerptVisibilityDependencyProperty = DependencyProperty.Register("ExcerptVisibility", typeof(Visibility), typeof(ArticleUserControl), new PropertyMetadata(Visibility.Collapsed, ExcerptVisibilityChanged));
+
+        public static void ExcerptVisibilityChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            ArticleUserControl control = dependencyObject as ArticleUserControl;
+            if (control != null)
+            {
+                control.Excerpt.Visibility = (Visibility)(dependencyPropertyChangedEventArgs.NewValue);
+            }
+        }
+
+        public Visibility ExcerptVisibility
+        {
+            get
+            {
+                return (Visibility)GetValue(ExcerptVisibilityDependencyProperty);
+            }
+            set
+            {
+                SetValue(ExcerptVisibilityDependencyProperty, value);
+            }
         }
     }
 }
