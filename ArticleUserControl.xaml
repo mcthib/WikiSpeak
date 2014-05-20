@@ -18,7 +18,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="12"/>
             </Grid.ColumnDefinitions>
             
             <TextBlock x:Name="Title" Grid.Column="0" Grid.Row="0" Text="{Binding Title}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="NoWrap"/>

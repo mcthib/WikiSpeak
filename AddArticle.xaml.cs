@@ -25,7 +25,7 @@ namespace WikiSpeak
 
         }
 
-        private void SearchButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             SearchForArticlesAsync(SearchTerm.Text, "en");
         }
@@ -65,6 +65,19 @@ namespace WikiSpeak
         private void ArticleUserControl_Add(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Ensures the search box getting focus for the first time results in the (useless) text being selected for easy deletion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchTerm_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.Equals(SearchTerm.Text, "search for...", StringComparison.OrdinalIgnoreCase))
+            {
+                SearchTerm.SelectAll();
+            }
         }
 
     }

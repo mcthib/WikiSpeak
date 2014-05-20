@@ -31,18 +31,44 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="12"/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" x:Name="SearchTerm" Text="search for..."/>
-            <Border x:Name="SearchButton" Grid.Column="1" Width="50" Height="50" Tap="SearchButton_Tap">
-                <Grid>
-                    <Image Source="/Assets/Icons/Dark/next.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <Ellipse Width="45" Height="45" Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="Transparent"/>
-                </Grid>
-            </Border>
-
+            <TextBox Grid.Column="0" x:Name="SearchTerm" Text="search for..." GotFocus="SearchTerm_GotFocus"/>
+            <Button x:Name="SearchButton" Grid.Column="1" Width="50" Height="50" Padding="0" Margin="0" BorderThickness="0" Click="SearchButton_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Grid Width="50" Height="50" x:Name="Container">
+                                        <Ellipse x:Name="Ellipse" Width="45" Height="45" Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="Transparent"/>
+                                        <Image Source="/Assets/Icons/Dark/next.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup x:Name="CommonStates">
+                                                <VisualState x:Name="Normal"/>
+                                                <VisualState x:Name="Pressed">
+                                                    <Storyboard>
+                                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Ellipse.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="Ellipse">
+                                                            <LinearColorKeyFrame KeyTime="0:0:0" Value="{StaticResource PhoneAccentColor}"/>
+                                                        </ColorAnimationUsingKeyFrames>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Ellipse.Width" Storyboard.TargetName="Ellipse">
+                                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="49"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Ellipse.Height" Storyboard.TargetName="Ellipse">
+                                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="49"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
-        
-
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,12,0">
             <phone:LongListSelector Margin="0,0,-12,0" ItemsSource="{Binding Articles}" x:Name="ArticleList" Visibility="{Binding ArticleListVisibility}">
@@ -53,6 +79,24 @@
                 </phone:LongListSelector.ItemTemplate>
             </phone:LongListSelector>
         </Grid>
+        <Button Grid.Row="2" Width="75" Height="75" BorderThickness="0" Padding="0" Margin="0">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Control.Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Grid Width="50" Height="50" x:Name="Container">
+                                    <Grid.Background>
+                                        <ImageBrush ImageSource="/Assets/Icons/Dark/next.png" Stretch="UniformToFill" />
+                                    </Grid.Background>
+                                    <Ellipse x:Name="Ellipse" Margin="0" Width="45" Height="45" Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="Transparent"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
