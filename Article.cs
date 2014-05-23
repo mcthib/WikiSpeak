@@ -144,15 +144,27 @@ namespace WikiSpeak
                     this.Url = articles[0].Url;
                     this.Status = ArticleStatus.Found;
 
-                    this.Status = ArticleStatus.Downloading;
-                    this.TextualContents = await WikipediaHelper.DownloadWikipediaArticleAsync(articles[0]);
-                    this.Status = ArticleStatus.Downloaded;
-                    FireContentChangedEvent();
+                    await DownloadAsync();
                 }
                 else
                 {
                     this.Status = ArticleStatus.NotFound;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Actually downloads the article
+        /// </summary>
+        /// <returns></returns>
+        public async Task DownloadAsync()
+        {
+            if (this.Status == ArticleStatus.Found)
+            {
+                this.Status = ArticleStatus.Downloading;
+                this.TextualContents = await WikipediaHelper.DownloadWikipediaArticleAsync(new WikipediaHelper.ArticleTitleAndUrl() { Url = this.Url });
+                this.Status = ArticleStatus.Downloaded;
+                FireContentChangedEvent();
             }
         }
 	}

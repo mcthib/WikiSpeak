@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:wikispeak="clr-namespace:WikiSpeak"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -17,19 +18,13 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="75"/>
                 <ColumnDefinition Width="12"/>
             </Grid.ColumnDefinitions>
             
             <TextBlock x:Name="Title" Grid.Column="0" Grid.Row="0" Text="{Binding Title}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="NoWrap"/>
             <TextBlock x:Name="Excerpt" Grid.Column="0" Grid.Row="1" Text="{Binding Excerpt}" Style="{StaticResource PhoneTextNormalStyle}" Visibility="Collapsed" TextWrapping="Wrap"/>
-            <Border x:Name="Button" Grid.Column="1" Grid.RowSpan="2" Width="50" Height="50" Tap="Button_Tap" Visibility="Collapsed">
-                <Grid>
-                    <Image x:Name="PlayIcon" Source="/Assets/Icons/Dark/transport.play.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
-                    <Image x:Name="AddIcon" Source="/Assets/Icons/Dark/new.png" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
-                    <Ellipse Width="45" Height="45" Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="Transparent"/>
-                </Grid>
-            </Border>
+            <wikispeak:RoundButton x:Name="Button" ImageSource="{Binding ButtonImageSource}" Grid.Column="1" Grid.RowSpan="2" Tap="Button_Tap" Visibility="Collapsed" Grid.ColumnSpan="2"/>
         </Grid>
         <VisualStateManager.VisualStateGroups  >
             <VisualStateGroup x:Name="CommonStates">
@@ -39,7 +34,7 @@
                         <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Container">
                             <LinearColorKeyFrame KeyTime="0:0:0.250" Value="{StaticResource PhoneAccentColor}"/>
                         </ColorAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Visibility)" Storyboard.TargetName="Button">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Button.Visibility)" Storyboard.TargetName="Button">
                             <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>

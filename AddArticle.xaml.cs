@@ -62,9 +62,24 @@ namespace WikiSpeak
             }
         }
 
+        /// <summary>
+        /// Handler for when the + button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ArticleUserControl_Add(object sender, EventArgs e)
         {
-
+            ArticleUserControl articleUserControl = sender as ArticleUserControl;
+            if (articleUserControl != null)
+            {
+                ViewModels.ArticleViewModel articleViewModel = articleUserControl.DataContext as ViewModels.ArticleViewModel;
+                if (articleViewModel != null)
+                {
+                    App.MainViewModel.Articles.Add(articleViewModel);
+                    articleViewModel.Article.DownloadAsync();
+                }
+            }
+            
         }
 
         /// <summary>

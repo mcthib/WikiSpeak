@@ -38,55 +38,6 @@ namespace WikiSpeak
             FireButtonClickedEvent();
         }
 
-        
-        
-
-        public static DependencyProperty PlayButtonVisibilityDependencyProperty = DependencyProperty.Register("PlayButtonVisibility", typeof(Visibility), typeof(ArticleUserControl), new PropertyMetadata(Visibility.Collapsed, PlayButtonVisibilityChanged));
-        
-        public Visibility PlayButtonVisibility
-        {
-            get
-            {
-                return (Visibility)GetValue(PlayButtonVisibilityDependencyProperty);
-            }
-            set
-            {
-                SetValue(PlayButtonVisibilityDependencyProperty, value);
-            }
-        }
-
-        public static void PlayButtonVisibilityChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
-        {
-            ArticleUserControl control = dependencyObject as ArticleUserControl;
-            if (control != null)
-            {
-                control.PlayIcon.Visibility = (Visibility)(dependencyPropertyChangedEventArgs.NewValue);
-            }
-        }
-
-        public static DependencyProperty AddButtonVisibilityDependencyProperty = DependencyProperty.Register("AddButtonVisibility", typeof(Visibility), typeof(ArticleUserControl), new PropertyMetadata(Visibility.Collapsed, AddButtonVisibilityChanged));
-
-        public static void AddButtonVisibilityChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
-        {
-            ArticleUserControl control = dependencyObject as ArticleUserControl;
-            if (control != null)
-            {
-                control.AddIcon.Visibility = (Visibility)(dependencyPropertyChangedEventArgs.NewValue);
-            }
-        }
-
-        public Visibility AddButtonVisibility
-        {
-            get
-            {
-                return (Visibility)GetValue(AddButtonVisibilityDependencyProperty);
-            }
-            set
-            {
-                SetValue(AddButtonVisibilityDependencyProperty, value);
-            }
-        }
-
         public static DependencyProperty ExcerptVisibilityDependencyProperty = DependencyProperty.Register("ExcerptVisibility", typeof(Visibility), typeof(ArticleUserControl), new PropertyMetadata(Visibility.Collapsed, ExcerptVisibilityChanged));
 
         public static void ExcerptVisibilityChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
@@ -109,5 +60,29 @@ namespace WikiSpeak
                 SetValue(ExcerptVisibilityDependencyProperty, value);
             }
         }
+
+        public static DependencyProperty ButtonImageSourceDependencyProperty = DependencyProperty.Register("ButtonImageSource", typeof(Uri), typeof(ArticleUserControl), new PropertyMetadata(null, ButtonImageSourceChanged));
+
+        public Uri ButtonImageSource
+        {
+            get
+            {
+                return (Uri)GetValue(ButtonImageSourceDependencyProperty);
+            }
+            set
+            {
+                SetValue(ButtonImageSourceDependencyProperty, value);
+            }
+        }
+
+        public static void ButtonImageSourceChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            ArticleUserControl control = dependencyObject as ArticleUserControl;
+            if (control != null)
+            {
+                control.Button.SetValue(RoundButton.ImageSourceDependencyProperty, (Uri)(dependencyPropertyChangedEventArgs.NewValue));
+            }
+        }
+
     }
 }

@@ -89,7 +89,7 @@
                 <toolkit:LongListMultiSelector Margin="0" ItemsSource="{Binding Articles}" toolkit:TiltEffect.IsTiltEnabled="True" x:Name="ArticleList" Visibility="{Binding ArticleListVisibility}">
                     <toolkit:LongListMultiSelector.ItemTemplate>
                         <DataTemplate>
-                            <wikispeak:ArticleUserControl Margin="0,0,50,0" Tap="ArticleUserControl_Tap" ButtonClicked="ArticleUserControl_Play" PlayButtonVisibility="Visible" />
+                            <wikispeak:ArticleUserControl Margin="0,0,50,0" Tap="ArticleUserControl_Tap" ButtonClicked="ArticleUserControl_Play" ButtonImageSource="/Assets/Icons/Dark/transport.play.png" />
                         </DataTemplate>
                     </toolkit:LongListMultiSelector.ItemTemplate>
                 </toolkit:LongListMultiSelector>
