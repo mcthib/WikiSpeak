@@ -137,14 +137,19 @@ namespace WikiSpeak
 
 			foreach (HtmlAgilityPack.HtmlNode node in doc.DocumentNode.SelectNodes("//*[@id=\"mw-content-text\"]/p | //*[@id=\"mw-content-text\"]/h2"))
 			{
-				result.AppendFormat(
-					"{0}\n\n",
-					HtmlAgilityPack.HtmlEntity.DeEntitize(
-						Regex.Replace(
-							node.InnerText,
-							"\\[[^\\]]+\\]",
-							string.Empty)));
+				string nodeText = HtmlAgilityPack.HtmlEntity.DeEntitize(
+				    Regex.Replace(
+					node.InnerText,
+					"\\[[^\\]]+\\]",
+					string.Empty));
 
+                while (nodeText.IndexOf("\n\n\n") >= 0)
+                {
+                    nodeText = nodeText.Replace("\n\n\n", "\n\n");
+                }
+
+                result.AppendLine(nodeText);
+                result.AppendLine();
 			}
 
 			return result.ToString();

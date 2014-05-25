@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace WikiSpeak
 {
@@ -26,6 +27,14 @@ namespace WikiSpeak
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            DoSearchTermSearch();
+        }
+
+        /// <summary>
+        /// Call do do a search based on what's in the SearchTerm box
+        /// </summary>
+        private void DoSearchTermSearch()
         {
             SearchForArticlesAsync(SearchTerm.Text, "en");
         }
@@ -77,6 +86,7 @@ namespace WikiSpeak
                 {
                     App.MainViewModel.Articles.Add(articleViewModel);
                     articleViewModel.Article.DownloadAsync();
+                    NavigationService.GoBack();
                 }
             }
             
@@ -92,6 +102,29 @@ namespace WikiSpeak
             if (string.Equals(SearchTerm.Text, "search for...", StringComparison.OrdinalIgnoreCase))
             {
                 SearchTerm.SelectAll();
+            }
+        }
+
+        /// <summary>
+        /// Handler for when the page is loaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            SearchTerm.Focus();
+        }
+
+        /// <summary>
+        /// Handler for when a key is pressed on the keyboard while SearchTerm has focus
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchTerm_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                DoSearchTermSearch();
             }
         }
 

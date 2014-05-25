@@ -116,6 +116,9 @@
     <Compile Include="RoundButton.xaml.cs">
       <DependentUpon>RoundButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ScrollableRichTextBox.xaml.cs">
+      <DependentUpon>ScrollableRichTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ScrollableTextBlock.xaml.cs" />
     <Compile Include="ViewModels\ArticleViewModel.cs" />
     <Compile Include="ViewModels\AddArticleViewModel.cs" />
@@ -144,6 +147,10 @@
       <SubType>Designer</SubType>
     </DesignData>
     <Page Include="RoundButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ScrollableRichTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

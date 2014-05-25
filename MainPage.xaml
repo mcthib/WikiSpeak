@@ -94,7 +94,7 @@
                     </toolkit:LongListMultiSelector.ItemTemplate>
                 </toolkit:LongListMultiSelector>
                 <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding ArticleViewVisibility}">
-                    <wikispeak:RichTextBoxEx IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding CurrentArticle.TextualContents}" />
+                    <wikispeak:ScrollableRichTextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding CurrentArticle.TextualContents}" />
                 </ScrollViewer>
             </Grid>
         </Grid>
