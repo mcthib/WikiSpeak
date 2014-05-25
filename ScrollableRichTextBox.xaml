@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wikispeak="clr-namespace:WikiSpeak"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -10,9 +11,15 @@
     d:DesignHeight="480" d:DesignWidth="480">
 
     <UserControl.Resources>
-        <Style TargetType="RichTextBox">
+        <Style TargetType="wikispeak:RichTextBoxEx">
             <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMedium}"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMedium}"/>
         </Style>
     </UserControl.Resources>
     <Grid x:Name="LayoutRoot" Background="Transparent">

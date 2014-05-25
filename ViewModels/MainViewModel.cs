@@ -158,14 +158,9 @@ namespace WikiSpeak.ViewModels
 		/// </summary>
 		public void LoadData()
 		{
-			this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti", "en") { Title = "first", Excerpt = "Excerpt of article 1" } });
-            this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti2", "en") { Title = "second", Excerpt = "Excerpt of article 2" } });
-            this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti", "en") { Title = "third", Excerpt = "Excerpt of article 1" } });
-            this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti2", "en") { Title = "fourth", Excerpt = "Excerpt of article 2" } });
-            this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti", "en") { Title = "fifth", Excerpt = "Excerpt of article 1" } });
-            this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti2", "en") { Title = "seventh", Excerpt = "Excerpt of article 2" } });
-            this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti", "en") { Title = "eight", Excerpt = "Excerpt of article 1" } });
-            this.Articles.Add(new ArticleViewModel() { Article = new Article("Arti2", "en") { Title = "ninth", Excerpt = "Excerpt of article 2" } });
+            Article art = new Article("France", "en");
+            art.SearchAsync();
+            this.Articles.Add(new ArticleViewModel() { Article = art });
 
 			this.IsDataLoaded = true;
 		}

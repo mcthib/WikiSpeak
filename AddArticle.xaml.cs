@@ -125,6 +125,9 @@ namespace WikiSpeak
             if (e.Key == Key.Enter)
             {
                 DoSearchTermSearch();
+
+                // Hides the keyboard by re-focusing the page
+                this.Focus();
             }
         }
 

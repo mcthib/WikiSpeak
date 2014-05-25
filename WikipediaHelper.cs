@@ -143,13 +143,15 @@ namespace WikiSpeak
 					"\\[[^\\]]+\\]",
 					string.Empty));
 
-                while (nodeText.IndexOf("\n\n\n") >= 0)
+                if (!string.IsNullOrWhiteSpace(nodeText))
                 {
-                    nodeText = nodeText.Replace("\n\n\n", "\n\n");
+                    while (nodeText.IndexOf("\n\n") >= 0)
+                    {
+                        nodeText = nodeText.Replace("\n\n", "\n");
+                    }
+                
+                    result.AppendLine(nodeText);
                 }
-
-                result.AppendLine(nodeText);
-                result.AppendLine();
 			}
 
 			return result.ToString();

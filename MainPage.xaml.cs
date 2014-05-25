@@ -110,11 +110,6 @@ namespace WikiSpeak
             {
                 App.MainViewModel.CurrentArticle = (article.DataContext as ViewModels.ArticleViewModel);
                 App.MainViewModel.IsArticleViewVisible = true;
-
-                // TODO
-                Article art = new Article("France", "en");
-                App.MainViewModel.Articles.Add(new ViewModels.ArticleViewModel() { Article = art });
-                art.SearchAsync();
             }
         }
 
@@ -137,6 +132,20 @@ namespace WikiSpeak
         {
             App.MainViewModel.IsArticleViewVisible = !App.MainViewModel.IsArticleViewVisible;
             RefreshAppBar();
+        }
+
+        /// <summary>
+        /// Handler for Back key. If we're in the article view, we want to stop reading and go back to the list view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (App.MainViewModel.IsArticleViewVisible)
+            {
+                App.MainViewModel.IsArticleViewVisible = false;
+                e.Cancel = true;
+            }
         }
 
 		// Sample code for building a localized ApplicationBar
