@@ -119,6 +119,7 @@
     <Compile Include="ScrollableRichTextBox.xaml.cs">
       <DependentUpon>ScrollableRichTextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StringEx.cs" />
     <Compile Include="ViewModels\ArticleViewModel.cs" />
     <Compile Include="ViewModels\AddArticleViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
