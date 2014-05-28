@@ -149,10 +149,11 @@ namespace WikiSpeak
                     {
                         nodeText = nodeText.Replace("\n\n", "\n");
                     }
-                
                     result.AppendLine(nodeText);
                 }
 			}
+
+            result.Replace("\r", string.Empty);
 
 			return result.ToString();
 		}

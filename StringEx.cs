@@ -52,7 +52,7 @@ namespace WikiSpeak
             {
                 get
                 {
-                    return StartIndex + Text.Length;
+                    return StartIndex + Text.Length - 1;
                 }
             }
 
@@ -149,6 +149,40 @@ namespace WikiSpeak
         public void ResetActiveFragment()
         {
             _activeFragmentIndex = 0;
+        }
+
+        /// <summary>
+        /// Adds a string of text and automatically works out the fragments
+        /// </summary>
+        /// <param name="text">an arbitrary piece of text</param>
+        public void Append(string text)
+        {
+            int startIndexFragment = this.ToString().Length;
+            int startBlock = 0, cursor;
+            for (cursor = 0; cursor < text.Length; cursor++)
+            {
+                switch (text[cursor])
+                {
+                    case '\n':
+                    case '\r':
+                    case '.':
+                        // End of a fragment
+                        this.Add(new Fragment(text.Substring(startBlock, cursor - startBlock + 1), startIndexFragment));
+                        startIndexFragment += cursor - startBlock + 1
+                            ;
+                        startBlock = cursor + 1;
+                        break;
+
+                    default:
+                        // no action
+                        break;
+                }
+            }
+
+            if (cursor > startBlock + 1)
+            {
+                this.Add(new Fragment(text.Substring(startBlock, cursor - startBlock), startIndexFragment));
+            }
         }
     }
 }
