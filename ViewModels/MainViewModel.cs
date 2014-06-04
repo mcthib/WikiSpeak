@@ -55,6 +55,39 @@ namespace WikiSpeak.ViewModels
             }
         }
 
+        public string CurrentArticleHTMLRepresentation
+        {
+            get
+            {
+                string text;
+
+                if (CurrentArticle != null)
+                {
+                    text =
+                        "<HTML>" +
+                        "  <HEAD>" +
+                        "    <STYLE>" +
+                        "      body" +
+                        "      {{" +
+                        "        background-color: black;" +
+                        "        color: white;" +
+                        "      }}" +
+                        "    </STYLE>" +
+                        "  </HEAD>" +
+                        "  <BODY>" +
+                        CurrentArticle.TextualContents.Replace("\n", "<BR/><BR/>") +
+                        "  </BODY>" +
+                        "</HTML>";
+                }
+                else
+                {
+                    text = string.Empty;
+                }
+
+                return text;
+            }
+        }
+
         /// <summary>
         /// Currently playing article
         /// </summary>
@@ -73,6 +106,7 @@ namespace WikiSpeak.ViewModels
                     NotifyPropertyChanged("CurrentArticle");
                     NotifyPropertyChanged("CurrentArticleTitle");
                     NotifyPropertyChanged("CurrentArticleRichTextBoxRepresentation");
+                    NotifyPropertyChanged("CurrentArticleHTMLRepresentation");
                 }
             }
         }

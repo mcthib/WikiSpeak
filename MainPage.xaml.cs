@@ -109,6 +109,7 @@ namespace WikiSpeak
             if (article != null)
             {
                 App.MainViewModel.CurrentArticle = (article.DataContext as ViewModels.ArticleViewModel);
+                Browser.NavigateToString(App.MainViewModel.CurrentArticleHTMLRepresentation);
                 App.MainViewModel.IsArticleViewVisible = true;
             }
         }

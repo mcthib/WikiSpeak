@@ -93,9 +93,12 @@
                         </DataTemplate>
                     </toolkit:LongListMultiSelector.ItemTemplate>
                 </toolkit:LongListMultiSelector>
+                <phone:WebBrowser x:Name="Browser" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding ArticleViewVisibility}"/>
+                <!--
                 <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding ArticleViewVisibility}">
                     <wikispeak:ScrollableRichTextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding CurrentArticle.TextualContents}" />
                 </ScrollViewer>
+                -->
             </Grid>
         </Grid>
     </Grid>

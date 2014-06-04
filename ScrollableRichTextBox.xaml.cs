@@ -60,14 +60,6 @@ namespace WikiSpeak
             }
 		}
 
-		private static TextBlock GetTextBlock()
-		{
-			return new TextBlock()
-			{
-				// All properties set in the Style
-			};
-		}
-
         /// <summary>
         /// Highlights the text between indices
         /// <remarks>cannot cross RichTextBoxEx boundaries (but can be a subset)</remarks>
