@@ -96,7 +96,7 @@ namespace WikiSpeak
         /// <summary>
         /// Gets the currently active fragment
         /// </summary>
-        private Fragment ActiveFragment
+        public Fragment ActiveFragment
         {
             get
             {
@@ -149,6 +149,15 @@ namespace WikiSpeak
         public void ResetActiveFragment()
         {
             _activeFragmentIndex = 0;
+        }
+
+        /// <summary>
+        /// Clears the string
+        /// </summary>
+        public new void Clear()
+        {
+            ResetActiveFragment();
+            base.Clear();
         }
 
         /// <summary>

@@ -123,6 +123,9 @@
     <Compile Include="ViewModels\ArticleViewModel.cs" />
     <Compile Include="ViewModels\AddArticleViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="WebBrowserEx.xaml.cs">
+      <DependentUpon>WebBrowserEx.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WikipediaHelper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +157,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WebBrowserEx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -161,7 +168,6 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="WikiSpeak_2014_06_03_23_03_58.sap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\AlignmentGrid.png" />
@@ -196,6 +202,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Tiles\IconicTileSmall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\WebBrowser.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="README_FIRST.txt" />
