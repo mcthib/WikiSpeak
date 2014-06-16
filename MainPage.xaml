@@ -75,7 +75,7 @@
                             <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                         </Grid>
                     </Button>
-                    <Button x:Name="ButtonForward" Grid.Column="2" BorderThickness="0" Width="100" Height="100" Padding="0" Margin="10,0,10,0">
+                    <Button x:Name="ButtonForward" Grid.Column="2" BorderThickness="0" Width="100" Height="100" Padding="0" Margin="10,0,10,0" Click="ButtonForward_Click">
                         <Grid>
                             <Image Source="/Assets/Icons/Dark/transport.ff.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneDarkThemeVisibility}"/>
                             <Image Source="/Assets/Icons/Light/transport.ff.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneLightThemeVisibility}"/>
@@ -96,7 +96,7 @@
                 <!--
                 <phone:WebBrowser x:Name="Browser" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding ArticleViewVisibility}"/>
                 -->
-                <wikispeak:WebBrowserEx HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BackgroundImg="Assets/background.jpg" Text="{Binding CurrentArticle.TextualContents}" Visibility="{Binding ArticleViewVisibility}" />
+                <wikispeak:WebBrowserEx x:Name="ArticleBrowser" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding CurrentArticle.TextualContents}" Visibility="{Binding ArticleViewVisibility}" />
                 <!--
                 <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                     <wikispeak:ScrollableRichTextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding CurrentArticle.TextualContents}" />

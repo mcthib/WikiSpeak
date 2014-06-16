@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -94,6 +95,44 @@ namespace WikiSpeak
         }
 
         /// <summary>
+        /// Gets an HTML representation of the text
+        /// </summary>
+        public string HTML
+        {
+            get
+            {
+                string html;
+
+                // Read resource template
+                using (StreamReader streamReader = new StreamReader(App.GetResourceStream(new Uri("Assets/WebBrowser.html", UriKind.Relative)).Stream))
+                {
+                    html = streamReader.ReadToEnd();
+                    streamReader.Close();
+                }
+
+                // Build content string
+                StringBuilder content = new StringBuilder();
+                foreach (StringEx.Fragment fragment in this)
+                {
+                    string fragmentSnippet = fragment.Text;
+
+                    fragmentSnippet = fragmentSnippet.Replace("\n", "<br/><br/>");
+                    if (fragment == ActiveFragment)
+                    {
+                        fragmentSnippet = "<div id=\"active_fragment\">" + fragmentSnippet + "</div>";
+                    }
+
+                    content.Append(fragmentSnippet);
+                }
+
+                // Replace content
+                html = html.Replace("!Content!", content.ToString());
+
+                return html;
+            }
+        }
+
+        /// <summary>
         /// Gets the currently active fragment
         /// </summary>
         public Fragment ActiveFragment
@@ -115,6 +154,8 @@ namespace WikiSpeak
         /// <returns>the currently active fragment, or null if no more</returns>
         public Fragment NextFragment()
         {
+            int currentIndex = _activeFragmentIndex;
+
             do
             {
                 if (_activeFragmentIndex < this.Count)
@@ -122,6 +163,11 @@ namespace WikiSpeak
                     _activeFragmentIndex++;
                 }
             } while ((ActiveFragment != null) && string.IsNullOrWhiteSpace(ActiveFragment));
+
+            if (currentIndex != _activeFragmentIndex)
+            {
+                FireActiveFragmentChangedEvent();
+            }
 
             return ActiveFragment;
         }
@@ -132,6 +178,8 @@ namespace WikiSpeak
         /// <returns>the currently active fragment, or null if no more</returns>
         public Fragment PreviousFragment()
         {
+            int currentIndex = _activeFragmentIndex;
+
             do
             {
                 if (_activeFragmentIndex >= 0)
@@ -139,6 +187,11 @@ namespace WikiSpeak
                     _activeFragmentIndex--;
                 }
             } while ((ActiveFragment != null) && string.IsNullOrWhiteSpace(ActiveFragment));
+
+            if (currentIndex != _activeFragmentIndex)
+            {
+                FireActiveFragmentChangedEvent();
+            }
 
             return ActiveFragment;
         }
@@ -148,7 +201,11 @@ namespace WikiSpeak
         /// </summary>
         public void ResetActiveFragment()
         {
-            _activeFragmentIndex = 0;
+            if (_activeFragmentIndex != -1)
+            {
+                _activeFragmentIndex = -1;
+                FireActiveFragmentChangedEvent();
+            }
         }
 
         /// <summary>
@@ -191,6 +248,23 @@ namespace WikiSpeak
             if (cursor > startBlock + 1)
             {
                 this.Add(new Fragment(text.Substring(startBlock, cursor - startBlock), startIndexFragment));
+            }
+        }
+
+        /// <summary>
+        /// Event fired when the active event has changed
+        /// </summary>
+        public event EventHandler<FragmentEventArgs> ActiveFragmentChanged;
+
+        /// <summary>
+        /// Fires the ActiveFragmentChanged event
+        /// </summary>
+        public void FireActiveFragmentChangedEvent()
+        {
+            EventHandler<FragmentEventArgs> activeFragmentChanged = ActiveFragmentChanged;
+            if (activeFragmentChanged != null)
+            {
+                activeFragmentChanged(this, new FragmentEventArgs(ActiveFragment));
             }
         }
     }

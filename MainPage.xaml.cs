@@ -149,6 +149,17 @@ namespace WikiSpeak
             }
         }
 
+        /// <summary>
+        /// Handler for when the forward button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonForward_Click(object sender, RoutedEventArgs e)
+        {
+            this.ArticleBrowser._text.NextFragment();
+
+        }
+
 		// Sample code for building a localized ApplicationBar
 		//private void BuildLocalizedApplicationBar()
 		//{

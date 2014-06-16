@@ -101,6 +101,7 @@
     <Compile Include="ArticleUserControl.xaml.cs">
       <DependentUpon>ArticleUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FragmentEventArgs.cs" />
     <Compile Include="HttpExtensions.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
