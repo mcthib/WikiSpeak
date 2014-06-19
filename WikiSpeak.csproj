@@ -117,12 +117,10 @@
     <Compile Include="RoundButton.xaml.cs">
       <DependentUpon>RoundButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ScrollableRichTextBox.xaml.cs">
-      <DependentUpon>ScrollableRichTextBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="StringEx.cs" />
     <Compile Include="ViewModels\ArticleViewModel.cs" />
     <Compile Include="ViewModels\AddArticleViewModel.cs" />
+    <Compile Include="ViewModels\CurrentArticleViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="WebBrowserEx.xaml.cs">
       <DependentUpon>WebBrowserEx.xaml</DependentUpon>
@@ -151,10 +149,6 @@
       <SubType>Designer</SubType>
     </DesignData>
     <Page Include="RoundButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ScrollableRichTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -205,9 +199,8 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\WebBrowser.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Assets\WebBrowser.html" />
+    <Content Include="Assets\WebBrowser_test.html" />
     <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />

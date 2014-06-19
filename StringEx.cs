@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -112,15 +113,16 @@ namespace WikiSpeak
 
                 // Build content string
                 StringBuilder content = new StringBuilder();
-                foreach (StringEx.Fragment fragment in this)
+                for (int fragment_index = 0; fragment_index < this.Count; fragment_index++)
                 {
-                    string fragmentSnippet = fragment.Text;
+                    string fragmentSnippet = this[fragment_index].Text;
 
                     fragmentSnippet = fragmentSnippet.Replace("\n", "<br/><br/>");
-                    if (fragment == ActiveFragment)
-                    {
-                        fragmentSnippet = "<div id=\"active_fragment\">" + fragmentSnippet + "</div>";
-                    }
+                    fragmentSnippet = string.Format(
+                        "<div id=\"{0}\" name=\"{0}\">{1}</div>",
+                        fragment_index,
+                        fragmentSnippet,
+                        CultureInfo.InvariantCulture);
 
                     content.Append(fragmentSnippet);
                 }

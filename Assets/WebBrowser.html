@@ -16,10 +16,29 @@
         div#active_fragment
         {
         color: red;
+        font-weight: bolder;
         }
     </style>
+    <script type="text/javascript">
+        // Clears the highlight from the highlighted fragment
+        function ClearHighlightedFragment() {
+            var active_fragment = document.getElementById("active_fragment");
+            if (active_fragment != null) {
+                active_fragment.id = active_fragment.getAttribute("name");
+            }
+        }
+        // Highlights the fragment by the name provided
+        function HighlightFragment(fragment_name) {
+            ClearHighlightedFragment();
+
+            var fragment = document.getElementById(fragment_name);
+            if (fragment != null) {
+                fragment.id = "active_fragment";
+            }
+        }
+    </script>
 </head>
 <body>
-    <div id="content">!Content!</div>
+    !Content!
 </body>
 </html>

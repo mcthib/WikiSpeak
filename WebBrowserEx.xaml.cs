@@ -20,6 +20,20 @@ namespace WikiSpeak
             InitializeComponent();
 
             _text.ActiveFragmentChanged += ActiveFragmentChangedHandler;
+            this.Browser.IsScriptEnabled = true;
+            this.Browser.LoadCompleted += Browser_LoadCompleted;
+        }
+
+        void Browser_LoadCompleted(object sender, NavigationEventArgs e)
+        {
+            try
+            {
+                this.Browser.InvokeScript("HighlightFragment", "2");
+            }
+            catch
+            {
+                // do nothing
+            }
         }
 
         /// <summary>
