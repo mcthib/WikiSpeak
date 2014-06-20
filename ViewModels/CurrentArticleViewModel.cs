@@ -34,10 +34,82 @@ namespace WikiSpeak.ViewModels
                     RefreshArticleText();
                     NotifyPropertyChanged("HTML");
                     NotifyPropertyChanged("SML");
+                    NotifyPropertyChanged("CanFastForward");
+                    NotifyPropertyChanged("CanRewind");
+                    NotifyPropertyChanged("CanPlay");
                 }
             }
         }
         private Article _article = null;
+
+        /// <summary>
+        /// Fast forwards to the next article fragment
+        /// </summary>
+        public void FastForward()
+        {
+            bool canFastForward = _fragments.CanFastForward;
+            if (_fragments.FastForward() != canFastForward)
+            {
+                NotifyPropertyChanged("CanFastForward");
+            }
+        }
+
+        /// <summary>
+        /// Rewinds to the previous article fragment
+        /// </summary>
+        public void Rewind()
+        {
+            bool canRewind = _fragments.CanRewind;
+            if (_fragments.Rewind() != canRewind)
+            {
+                NotifyPropertyChanged("CanRewind");
+            }
+        }
+
+        /// <summary>
+        /// Gets whether there is anything to play currently
+        /// </summary>
+        public bool CanPlay
+        {
+            get
+            {
+                return _fragments.CanPlay;
+            }
+        }
+
+        /// <summary>
+        /// Gets whether we can fast-forward
+        /// </summary>
+        public bool CanFastForward
+        {
+            get
+            {
+                return _fragments.CanFastForward;
+            }
+        }
+
+        /// <summary>
+        /// Gets the active fragment index
+        /// </summary>
+        public int ActiveFragmentIndex
+        {
+            get
+            {
+                return _fragments.ActiveFragmentIndex;
+            }
+        }
+
+        /// <summary>
+        /// Gets whether we can rewind
+        /// </summary>
+        public bool CanRewind
+        {
+            get
+            {
+                return _fragments.CanRewind;
+            }
+        }
+
 
         /// <summary>
         /// Gets the HTML representation of the current article
@@ -47,16 +119,6 @@ namespace WikiSpeak.ViewModels
             get
             {
                 return _fragments.HTML;
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (null != handler)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
@@ -73,6 +135,16 @@ namespace WikiSpeak.ViewModels
             }
 
             _fragments = newText;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(String propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (null != handler)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

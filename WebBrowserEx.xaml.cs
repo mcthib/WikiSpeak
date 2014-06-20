@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Text;
+using System.Globalization;
 
 namespace WikiSpeak
 {
@@ -28,7 +29,7 @@ namespace WikiSpeak
         {
             try
             {
-                this.Browser.InvokeScript("HighlightFragment", "2");
+                this.Browser.InvokeScript("HighlightFragment", App.MainViewModel.CurrentArticleViewModel.ActiveFragmentIndex.ToString(CultureInfo.InvariantCulture));
             }
             catch
             {

@@ -114,6 +114,9 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="RichTextBoxEx.cs" />
+    <Compile Include="BigRoundButton.xaml.cs">
+      <DependentUpon>BigRoundButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RoundButton.xaml.cs">
       <DependentUpon>RoundButton.xaml</DependentUpon>
     </Compile>
@@ -148,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="BigRoundButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="RoundButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

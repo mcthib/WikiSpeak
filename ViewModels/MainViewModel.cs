@@ -89,6 +89,22 @@ namespace WikiSpeak.ViewModels
         }
 
         /// <summary>
+        /// Holds information about the current article
+        /// </summary>
+        public CurrentArticleViewModel CurrentArticleViewModel
+        {
+            get
+            {
+                return _currentArticleViewModel;
+            }
+            private set
+            {
+                _currentArticleViewModel = value;
+            }
+        }
+        CurrentArticleViewModel _currentArticleViewModel = new CurrentArticleViewModel();
+
+        /// <summary>
         /// Currently playing article
         /// </summary>
         public ArticleViewModel CurrentArticle
@@ -103,6 +119,7 @@ namespace WikiSpeak.ViewModels
                 if (value != currentValue)
                 {
                     _currentArticle = value;
+                    CurrentArticleViewModel.Article = value.Article;
                     NotifyPropertyChanged("CurrentArticle");
                     NotifyPropertyChanged("CurrentArticleTitle");
                     NotifyPropertyChanged("CurrentArticleRichTextBoxRepresentation");

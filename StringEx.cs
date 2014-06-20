@@ -146,56 +146,102 @@ namespace WikiSpeak
         }
 
         /// <summary>
-        /// Gets the active fragment's index in the list
+        /// Gets the currently active fragment index
         /// </summary>
+        public int ActiveFragmentIndex
+        {
+            get
+            {
+                return _activeFragmentIndex;
+            }
+        }
         private int _activeFragmentIndex = -1;
 
         /// <summary>
         /// Advances the fragment cursor to the next one.
         /// </summary>
-        /// <returns>the currently active fragment, or null if no more</returns>
-        public Fragment NextFragment()
+        /// <returns>true if this isn't the last fragment</returns>
+        public bool FastForward()
         {
-            int currentIndex = _activeFragmentIndex;
-
-            do
+            if (CanFastForward)
             {
-                if (_activeFragmentIndex < this.Count)
+                int currentIndex = _activeFragmentIndex;
+
+                do
                 {
-                    _activeFragmentIndex++;
-                }
-            } while ((ActiveFragment != null) && string.IsNullOrWhiteSpace(ActiveFragment));
+                    if (_activeFragmentIndex < this.Count)
+                    {
+                        _activeFragmentIndex++;
+                    }
+                } while ((ActiveFragment != null) && string.IsNullOrWhiteSpace(ActiveFragment));
 
-            if (currentIndex != _activeFragmentIndex)
-            {
-                FireActiveFragmentChangedEvent();
+                if (currentIndex != _activeFragmentIndex)
+                {
+                    FireActiveFragmentChangedEvent();
+                }
             }
 
-            return ActiveFragment;
+            return CanFastForward;
         }
         
         /// <summary>
         /// Backtracks the fragment cursor to the previous one.
         /// </summary>
-        /// <returns>the currently active fragment, or null if no more</returns>
-        public Fragment PreviousFragment()
+        /// <returns>true if this isn't the first fragment</returns>
+        public bool Rewind()
         {
-            int currentIndex = _activeFragmentIndex;
-
-            do
+            if (CanRewind)
             {
-                if (_activeFragmentIndex >= 0)
+                int currentIndex = _activeFragmentIndex;
+
+                do
                 {
-                    _activeFragmentIndex--;
-                }
-            } while ((ActiveFragment != null) && string.IsNullOrWhiteSpace(ActiveFragment));
+                    if (_activeFragmentIndex >= 0)
+                    {
+                        _activeFragmentIndex--;
+                    }
+                } while ((ActiveFragment != null) && string.IsNullOrWhiteSpace(ActiveFragment));
 
-            if (currentIndex != _activeFragmentIndex)
-            {
-                FireActiveFragmentChangedEvent();
+                if (currentIndex != _activeFragmentIndex)
+                {
+                    FireActiveFragmentChangedEvent();
+                }
             }
 
-            return ActiveFragment;
+            return CanRewind;
+        }
+
+        /// <summary>
+        /// Gets whether there is anything to play currently
+        /// </summary>
+        public bool CanPlay
+        {
+            get
+            {
+                return ((this.Count > 0) && (_activeFragmentIndex < this.Count));
+            }
+        }
+
+        /// <summary>
+        /// Gets whether we can fast-forward
+        /// </summary>
+        public bool CanFastForward
+        {
+            get
+            {
+                return (_activeFragmentIndex < this.Count - 1);
+            }
+        }
+
+        /// <summary>
+        /// Gets whether we can rewind
+        /// </summary>
+        public bool CanRewind
+        {
+            get
+            {
+                return (_activeFragmentIndex > 0);
+            }
         }
 
         /// <summary>

@@ -150,17 +150,38 @@ namespace WikiSpeak
         }
 
         /// <summary>
+        /// Handler for when the rewindbutton is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonRewind_Click(object sender, RoutedEventArgs e)
+        {
+            App.MainViewModel.CurrentArticleViewModel.Rewind();
+        }
+
+        /// <summary>
+        /// Handler for when the play / pause button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonPlayPause_Click(object sender, RoutedEventArgs e)
+        {
+            //App.MainViewModel.CurrentArticleViewModel.Rewind();
+
+        }
+
+        /// <summary>
         /// Handler for when the forward button is clicked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonForward_Click(object sender, RoutedEventArgs e)
+        private void ButtonFastForward_Click(object sender, RoutedEventArgs e)
         {
-            this.ArticleBrowser._text.NextFragment();
+            App.MainViewModel.CurrentArticleViewModel.FastForward();
 
         }
-
-		// Sample code for building a localized ApplicationBar
+        
+        // Sample code for building a localized ApplicationBar
 		//private void BuildLocalizedApplicationBar()
 		//{
 		//    // Set the page's ApplicationBar to a new instance of ApplicationBar.

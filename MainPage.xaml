@@ -50,7 +50,7 @@
             <Grid x:Name="PlayBar" Grid.Row="0" Background="#20FFFFFF">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
-                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="110"/>
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="CurrentArticle" Grid.Row="0" Text="{Binding CurrentArticleTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri Light" FontSize="36" FontWeight="Bold"/>
                 <Grid Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Center">
@@ -59,29 +59,9 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="ButtonRewind" Grid.Column="0" BorderThickness="0" Width="100" Height="100" Padding="0" Margin="10,0,10,0">
-                        <Grid>
-                            <Image Source="/Assets/Icons/Dark/transport.rew.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneDarkThemeVisibility}"/>
-                            <Image Source="/Assets/Icons/Light/transport.rew.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneLightThemeVisibility}"/>
-                            <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                        </Grid>
-                    </Button>
-                    <Button x:Name="ButtonPlayPause" Grid.Column="1" BorderThickness="0" Width="100" Height="100" Padding="0" Margin="10,0,10,0">
-                        <Grid>
-                            <Image Source="/Assets/Icons/Dark/transport.play.png" HorizontalAlignment="Center" Width="100" Visibility="{StaticResource PhoneDarkThemeVisibility}"/>
-                            <Image Source="/Assets/Icons/Light/transport.play.png" HorizontalAlignment="Center" Width="100" Visibility="{StaticResource PhoneLightThemeVisibility}"/>
-                            <Image Source="/Assets/Icons/Dark/transport.pause.png" HorizontalAlignment="Center" Width="100" Visibility="Collapsed"/>
-                            <Image Source="/Assets/Icons/Light/transport.pause.png" HorizontalAlignment="Center" Width="100" Visibility="Collapsed"/>
-                            <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                        </Grid>
-                    </Button>
-                    <Button x:Name="ButtonForward" Grid.Column="2" BorderThickness="0" Width="100" Height="100" Padding="0" Margin="10,0,10,0" Click="ButtonForward_Click">
-                        <Grid>
-                            <Image Source="/Assets/Icons/Dark/transport.ff.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneDarkThemeVisibility}"/>
-                            <Image Source="/Assets/Icons/Light/transport.ff.png" HorizontalAlignment="Center" Width="102" Visibility="{StaticResource PhoneLightThemeVisibility}"/>
-                            <Ellipse Stroke="{StaticResource PhoneForegroundBrush}" StrokeThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                        </Grid>
-                    </Button>
+                    <wikispeak:BigRoundButton x:Name="ButtonRewind" Grid.Column="0" Padding="0" Margin="10,0,10,10" ImageSource="/Assets/Icons/Dark/transport.rew.png" IsEnabled="{Binding CurrentArticleViewModel.CanRewind}" Click="ButtonRewind_Click"/>
+                    <wikispeak:BigRoundButton x:Name="ButtonPlayPause" Grid.Column="1" Padding="0" Margin="10,0,10,10" ImageSource="/Assets/Icons/Dark/transport.play.png" IsEnabled="{Binding CurrentArticleViewModel.CanPlay}" Click="ButtonPlayPause_Click"/>
+                    <wikispeak:BigRoundButton x:Name="ButtonForward" Grid.Column="2" Padding="0" Margin="10,0,10,10" ImageSource="/Assets/Icons/Dark/transport.ff.png" IsEnabled="{Binding CurrentArticleViewModel.CanFastForward}" Click="ButtonFastForward_Click"/>
                 </Grid>
             </Grid>
             
@@ -96,7 +76,7 @@
                 <!--
                 <phone:WebBrowser x:Name="Browser" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding ArticleViewVisibility}"/>
                 -->
-                <wikispeak:WebBrowserEx x:Name="ArticleBrowser" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding CurrentArticle.TextualContents}" Visibility="{Binding ArticleViewVisibility}" />
+                <wikispeak:WebBrowserEx x:Name="ArticleBrowser" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding CurrentArticleViewModel.ArticleText}" Visibility="{Binding ArticleViewVisibility}" />
                 <!--
                 <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                     <wikispeak:ScrollableRichTextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding CurrentArticle.TextualContents}" />
