@@ -34,6 +34,31 @@
             var fragment = document.getElementById(fragment_name);
             if (fragment != null) {
                 fragment.id = "active_fragment";
+                NavigateToActiveFragment();
+            }
+        }
+        // Put the active fragment at the top of the viewport
+        function NavigateToActiveFragment()
+        {
+            var active_fragment = document.getElementById("active_fragment");
+            if (active_fragment != null)
+            {
+                Scroll_To(active_fragment, 0);
+            }
+        }
+        // Scrolls an element smoothly to a position on the screen
+        function Scroll_To(elem, pos)
+        {
+            var distance = elem.offsetTop - window.pageYOffset;
+            var step = window.pageYOffset + distance * 0.3;
+            if (Math.abs(step - window.pageYOffset) < 2)
+            {
+                window.ScrollTo(window.pageXOffset, elem.offsetTop);
+            }
+            else
+            {
+                window.scrollTo(window.pageXOffset, step);
+                setTimeout(Scroll_To, 40, elem, pos);
             }
         }
     </script>

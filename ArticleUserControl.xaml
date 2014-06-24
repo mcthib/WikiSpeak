@@ -24,7 +24,7 @@
             
             <TextBlock x:Name="Title" Grid.Column="0" Grid.Row="0" Text="{Binding Title}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="NoWrap"/>
             <TextBlock x:Name="Excerpt" Grid.Column="0" Grid.Row="1" Text="{Binding Excerpt}" Style="{StaticResource PhoneTextNormalStyle}" Visibility="Collapsed" TextWrapping="Wrap"/>
-            <wikispeak:RoundButton x:Name="Button" ImageSource="{Binding ButtonImageSource}" Grid.Column="1" Grid.RowSpan="2" Tap="Button_Tap" Visibility="Collapsed" Grid.ColumnSpan="2"/>
+            <wikispeak:BigRoundButton x:Name="Button" ImageSource="{Binding ButtonImageSource}" Grid.Column="1" Grid.RowSpan="2" Tap="Button_Tap" Visibility="Collapsed" Grid.ColumnSpan="2" Width="50" Height="50"/>
         </Grid>
         <VisualStateManager.VisualStateGroups  >
             <VisualStateGroup x:Name="CommonStates">

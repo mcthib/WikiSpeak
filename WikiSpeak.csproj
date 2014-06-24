@@ -101,6 +101,7 @@
     <Compile Include="ArticleUserControl.xaml.cs">
       <DependentUpon>ArticleUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ConvertMultiply.cs" />
     <Compile Include="FragmentEventArgs.cs" />
     <Compile Include="HttpExtensions.cs" />
     <Compile Include="LocalizedStrings.cs" />
@@ -116,9 +117,6 @@
     <Compile Include="RichTextBoxEx.cs" />
     <Compile Include="BigRoundButton.xaml.cs">
       <DependentUpon>BigRoundButton.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="RoundButton.xaml.cs">
-      <DependentUpon>RoundButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="StringEx.cs" />
     <Compile Include="ViewModels\ArticleViewModel.cs" />
@@ -154,10 +152,6 @@
     <Page Include="BigRoundButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="RoundButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WebBrowserEx.xaml">
       <SubType>Designer</SubType>
@@ -206,8 +200,8 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\WebBrowser - Copy.html" />
     <Content Include="Assets\WebBrowser.html" />
-    <Content Include="Assets\WebBrowser_test.html" />
     <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />

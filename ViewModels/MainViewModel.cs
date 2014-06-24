@@ -34,61 +34,6 @@ namespace WikiSpeak.ViewModels
         private ObservableCollection<ArticleViewModel> _articles = new ObservableCollection<ArticleViewModel>();
 
         /// <summary>
-		/// Currently playing article title
-		/// </summary>
-        public string CurrentArticleTitle
-		{
-			get
-			{
-                return (CurrentArticle == null ? string.Empty : CurrentArticle.Title);
-			}
-		}
-
-        /// <summary>
-        /// Currently playing article text for the reader view
-        /// </summary>
-        public string CurrentArticleRichTextBoxRepresentation
-        {
-            get
-            {
-                return (CurrentArticle == null ? string.Empty : CurrentArticle.RichTextBoxRepresentation);
-            }
-        }
-
-        public string CurrentArticleHTMLRepresentation
-        {
-            get
-            {
-                string text;
-
-                if (CurrentArticle != null)
-                {
-                    text =
-                        "<HTML>" +
-                        "  <HEAD>" +
-                        "    <STYLE>" +
-                        "      body" +
-                        "      {{" +
-                        "        background-color: black;" +
-                        "        color: white;" +
-                        "      }}" +
-                        "    </STYLE>" +
-                        "  </HEAD>" +
-                        "  <BODY>" +
-                        CurrentArticle.TextualContents.Replace("\n", "<BR/><BR/>") +
-                        "  </BODY>" +
-                        "</HTML>";
-                }
-                else
-                {
-                    text = string.Empty;
-                }
-
-                return text;
-            }
-        }
-
-        /// <summary>
         /// Holds information about the current article
         /// </summary>
         public CurrentArticleViewModel CurrentArticleViewModel
@@ -103,31 +48,6 @@ namespace WikiSpeak.ViewModels
             }
         }
         CurrentArticleViewModel _currentArticleViewModel = new CurrentArticleViewModel();
-
-        /// <summary>
-        /// Currently playing article
-        /// </summary>
-        public ArticleViewModel CurrentArticle
-        {
-            get
-            {
-                return _currentArticle;
-            }
-            set
-            {
-                ArticleViewModel currentValue = _currentArticle;
-                if (value != currentValue)
-                {
-                    _currentArticle = value;
-                    CurrentArticleViewModel.Article = value.Article;
-                    NotifyPropertyChanged("CurrentArticle");
-                    NotifyPropertyChanged("CurrentArticleTitle");
-                    NotifyPropertyChanged("CurrentArticleRichTextBoxRepresentation");
-                    NotifyPropertyChanged("CurrentArticleHTMLRepresentation");
-                }
-            }
-        }
-        private ArticleViewModel _currentArticle = null;
 
         /// <summary>
         /// Gets the visibility of the articles list

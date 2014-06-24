@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="user-scalable-no"/>
+    <style>
+        body
+        {
+        background-color: black;
+        color: white;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        }
+        div#active_fragment
+        {
+        color: red;
+        font-weight: bolder;
+        }
+    </style>
+    <script type="text/javascript">
+        // Clears the highlight from the highlighted fragment
+        function ClearHighlightedFragment() {
+            var active_fragment = document.getElementById("active_fragment");
+            if (active_fragment != null) {
+                active_fragment.id = active_fragment.getAttribute("name");
+            }
+        }
+        // Highlights the fragment by the name provided
+        function HighlightFragment(fragment_name) {
+            ClearHighlightedFragment();
+
+            var fragment = document.getElementById(fragment_name);
+            if (fragment != null) {
+                fragment.id = "active_fragment";
+            }
+        }
+        // Put the active fragment at the top of the viewport
+        function NavigateToActiveFragment()
+        {
+            var active_fragment = document.getElementById("active_fragment");
+            if (active_fragment != null) {
+                //active_fragment.scrollIntoView(true);
+                Scroll_To(active_fragment, 10);
+            }
+        }
+        function Scroll_To(elem, pos)
+        {
+            var distance = elem.offsetTop - window.pageYOffset;
+            var step = window.pageYOffset + distance * 0.3;
+            if (Math.abs(step - window.pageYOffset) < 2)
+            {
+                window.ScrollTo(window.pageXOffset, elem.offsetTop);
+            }
+            else
+            {
+                window.scrollTo(window.pageXOffset, step);
+                setTimeout(Scroll_To, 40, elem, pos);
+            }
+        }
+    </script>
+</head>
+<body>
+    <button onclick="NavigateToActiveFragment()">click meeeee</button>
+    <p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p>
+    <div id="active_fragment" name="34">content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br /></div>
+    <p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p>
+</body>
+</html>

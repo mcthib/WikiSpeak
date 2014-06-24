@@ -13,6 +13,24 @@ namespace WikiSpeak.ViewModels
     public class CurrentArticleViewModel : INotifyPropertyChanged
     {
         /// <summary>
+        /// C-tor
+        /// </summary>
+        public CurrentArticleViewModel()
+        {
+            _fragments.ActiveFragmentChanged += _fragments_ActiveFragmentChanged;
+        }
+
+        /// <summary>
+        /// Handler for when the active fragment index has changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void _fragments_ActiveFragmentChanged(object sender, FragmentEventArgs e)
+        {
+            NotifyPropertyChanged("ActiveFragmentIndex");
+        }
+
+        /// <summary>
         /// The fragments associated with the article's contents
         /// </summary>
         private StringEx _fragments = new StringEx();
@@ -32,15 +50,21 @@ namespace WikiSpeak.ViewModels
                     NotifyPropertyChanged("Article");
 
                     RefreshArticleText();
-                    NotifyPropertyChanged("HTML");
-                    NotifyPropertyChanged("SML");
-                    NotifyPropertyChanged("CanFastForward");
-                    NotifyPropertyChanged("CanRewind");
-                    NotifyPropertyChanged("CanPlay");
                 }
             }
         }
         private Article _article = null;
+
+        /// <summary>
+        /// Gets the title of the current article
+        /// </summary>
+        public string Title
+        {
+            get
+            {
+                return (_article == null ? string.Empty : _article.Title);
+            }
+        }
 
         /// <summary>
         /// Fast forwards to the next article fragment
@@ -48,9 +72,16 @@ namespace WikiSpeak.ViewModels
         public void FastForward()
         {
             bool canFastForward = _fragments.CanFastForward;
+            bool canRewind = _fragments.CanRewind;
+            
             if (_fragments.FastForward() != canFastForward)
             {
                 NotifyPropertyChanged("CanFastForward");
+            }
+            
+            if (_fragments.CanRewind != canRewind)
+            {
+                NotifyPropertyChanged("CanRewind");
             }
         }
 
@@ -60,9 +91,16 @@ namespace WikiSpeak.ViewModels
         public void Rewind()
         {
             bool canRewind = _fragments.CanRewind;
+            bool canFastForward = _fragments.CanFastForward;
+
             if (_fragments.Rewind() != canRewind)
             {
                 NotifyPropertyChanged("CanRewind");
+            }
+
+            if (_fragments.CanFastForward != canFastForward)
+            {
+                NotifyPropertyChanged("CanFastForward");
             }
         }
 
@@ -134,7 +172,21 @@ namespace WikiSpeak.ViewModels
                 newText.Append(Article.TextualContents);
             }
 
+            if (_fragments != null)
+            {
+                _fragments.ActiveFragmentChanged -= _fragments_ActiveFragmentChanged;
+            }
+
+            newText.ActiveFragmentChanged += _fragments_ActiveFragmentChanged;
             _fragments = newText;
+
+            NotifyPropertyChanged("HTML");
+            NotifyPropertyChanged("SML");
+            NotifyPropertyChanged("CanFastForward");
+            NotifyPropertyChanged("CanRewind");
+            NotifyPropertyChanged("CanPlay");
+            NotifyPropertyChanged("ActiveFragmentIndex");
+            NotifyPropertyChanged("Title");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

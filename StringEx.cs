@@ -155,7 +155,7 @@ namespace WikiSpeak
                 return _activeFragmentIndex;
             }
         }
-        private int _activeFragmentIndex = -1;
+        private int _activeFragmentIndex = 0;
 
         /// <summary>
         /// Advances the fragment cursor to the next one.
@@ -249,9 +249,9 @@ namespace WikiSpeak
         /// </summary>
         public void ResetActiveFragment()
         {
-            if (_activeFragmentIndex != -1)
+            if (_activeFragmentIndex != 0)
             {
-                _activeFragmentIndex = -1;
+                _activeFragmentIndex = 0;
                 FireActiveFragmentChangedEvent();
             }
         }

@@ -52,7 +52,7 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="110"/>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="CurrentArticle" Grid.Row="0" Text="{Binding CurrentArticleTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri Light" FontSize="36" FontWeight="Bold"/>
+                <TextBlock x:Name="CurrentArticle" Grid.Row="0" Text="{Binding CurrentArticleViewModel.Title}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri Light" FontSize="36" FontWeight="Bold"/>
                 <Grid Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -73,15 +73,7 @@
                         </DataTemplate>
                     </toolkit:LongListMultiSelector.ItemTemplate>
                 </toolkit:LongListMultiSelector>
-                <!--
-                <phone:WebBrowser x:Name="Browser" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding ArticleViewVisibility}"/>
-                -->
-                <wikispeak:WebBrowserEx x:Name="ArticleBrowser" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding CurrentArticleViewModel.ArticleText}" Visibility="{Binding ArticleViewVisibility}" />
-                <!--
-                <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-                    <wikispeak:ScrollableRichTextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding CurrentArticle.TextualContents}" />
-                </ScrollViewer>
-                -->
+                <wikispeak:WebBrowserEx x:Name="ArticleBrowser" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding ArticleViewVisibility}" HTML="{Binding CurrentArticleViewModel.HTML}" ActiveFragmentIndex="{Binding CurrentArticleViewModel.ActiveFragmentIndex}"/>
             </Grid>
         </Grid>
     </Grid>

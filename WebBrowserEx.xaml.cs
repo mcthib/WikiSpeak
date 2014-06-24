@@ -20,21 +20,18 @@ namespace WikiSpeak
         {
             InitializeComponent();
 
-            _text.ActiveFragmentChanged += ActiveFragmentChangedHandler;
             this.Browser.IsScriptEnabled = true;
             this.Browser.LoadCompleted += Browser_LoadCompleted;
         }
 
+        /// <summary>
+        /// Handler for when the browser has finished loading. When this happens it is safe to call scripts.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void Browser_LoadCompleted(object sender, NavigationEventArgs e)
         {
-            try
-            {
-                this.Browser.InvokeScript("HighlightFragment", App.MainViewModel.CurrentArticleViewModel.ActiveFragmentIndex.ToString(CultureInfo.InvariantCulture));
-            }
-            catch
-            {
-                // do nothing
-            }
+            RefreshActiveFragmentIndex();
         }
 
         /// <summary>
@@ -53,7 +50,7 @@ namespace WikiSpeak
 
             using (StreamWriter streamWriter = new StreamWriter(filename))
             {
-                streamWriter.Write(_text.HTML);
+                streamWriter.Write(HTML);
                 streamWriter.Close();
             }
 
@@ -61,64 +58,105 @@ namespace WikiSpeak
         }
 
         /// <summary>
-        /// The text
+        /// Refreshes the active fragment index on the browser
         /// </summary>
-        public StringEx _text = new StringEx();
+        private void RefreshActiveFragmentIndex()
+        {
+            try
+            {
+                Browser.InvokeScript("HighlightFragment", ActiveFragmentIndex.ToString(CultureInfo.InvariantCulture));
+            }
+            catch
+            {
+                // Do nothing on failure?
+            }
+        }
 
-        #region Text Property
+        #region HTML Property
 
         /// <summary>
         /// BackgroundImg property definition
         /// </summary>
-        public static readonly DependencyProperty TextProperty =
+        public static readonly DependencyProperty HTMLProperty =
             DependencyProperty.Register(
-                "Text",
+                "HTML",
                 typeof(string),
                 typeof(WebBrowserEx),
-                new PropertyMetadata(string.Empty, OnTextPropertyChanged));
+                new PropertyMetadata(string.Empty, OnHTMLPropertyChanged));
 
         /// <summary>
-        /// Gets or sets the Text
+        /// Gets or sets the HTML contents to display
         /// </summary>
-        public string Text
+        public string HTML
         {
             get
             {
-                return (string)GetValue(TextProperty);
+                return (string)GetValue(HTMLProperty);
             }
             set
             {
-                SetValue(TextProperty, value);
+                SetValue(HTMLProperty, value);
             }
         }
 
         /// <summary>
-        /// Handler for when the Text has changed
+        /// Handler for when the HTML contents have changed
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private static void OnTextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        private static void OnHTMLPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             WebBrowserEx webBrowserEx = sender as WebBrowserEx;
             if (webBrowserEx != null)
             {
-                webBrowserEx._text.Clear();
-                webBrowserEx._text.Append(webBrowserEx.GetValue(TextProperty) as string);
-
                 webBrowserEx.RefreshBrowserContents();
             }
         }
 
-        #endregion Text Property
+        #endregion HTML Property
+
+        #region ActiveFragmentIndex Property
 
         /// <summary>
-        /// Handler for when the active fragment changes
+        /// BackgroundImg property definition
+        /// </summary>
+        public static readonly DependencyProperty ActiveFragmentIndexProperty =
+            DependencyProperty.Register(
+                "ActiveFragmentIndex",
+                typeof(int),
+                typeof(WebBrowserEx),
+                new PropertyMetadata(-1, OnActiveFragmentIndexPropertyChanged));
+
+        /// <summary>
+        /// Gets or sets the active fragment index
+        /// </summary>
+        public int ActiveFragmentIndex
+        {
+            get
+            {
+                return (int)GetValue(ActiveFragmentIndexProperty);
+            }
+            set
+            {
+                SetValue(ActiveFragmentIndexProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Handler for when the active fragment index has changed
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        public void ActiveFragmentChangedHandler(object sender, FragmentEventArgs args)
+        private static void OnActiveFragmentIndexPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            RefreshBrowserContents();
+            WebBrowserEx webBrowserEx = sender as WebBrowserEx;
+            if (webBrowserEx != null)
+            {
+                webBrowserEx.RefreshActiveFragmentIndex();
+            }
         }
+
+        #endregion ActiveFragmentIndex Property
+
     }
 }

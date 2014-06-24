@@ -52,11 +52,41 @@ namespace WikiSpeak
         #endregion DependencyProperty: ImageSource
 
         /// <summary>
+        /// A recursive method that finds the control of type T and given name among the child controls
+        /// </summary>
+        /// <typeparam name="T">the type of the control to look for</typeparam>
+        /// <param name="parent">parent control, i.e. this at the beginning of recursion</param>
+        /// <param name="name">name of the control to look for</param>
+        /// <remarks>will not work until the button is loaded</remarks>
+        /// <returns>the control searched for, or null</returns>
+        public static T GetChildRecursive<T>(DependencyObject parent, string name) where T : DependencyObject
+        {
+            int count = VisualTreeHelper.GetChildrenCount(parent);
+            DependencyObject returnValue = null;
+
+            for (int i = 0; (i < count) && (returnValue == null); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(parent, i);
+                if ((child is T) && string.Equals(child.GetValue(FrameworkElement.NameProperty), name))
+                {
+                    returnValue = child;
+                }
+                else
+                {
+                    returnValue = GetChildRecursive<T>(child, name);
+                }
+
+            }
+
+            return (T)returnValue;
+        }
+
+        /// <summary>
         /// Refreshes the image used as button icon
         /// </summary>
         private void RefreshButtonImage()
         {
-            Image child = RoundButton.GetChildRecursive<Image>(this, "Image");
+            Image child = GetChildRecursive<Image>(this, "Image");
             if (child != null)
             {
                 BitmapImage bitmap = new BitmapImage(this.ImageSource);

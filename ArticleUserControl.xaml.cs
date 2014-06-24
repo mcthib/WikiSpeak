@@ -80,7 +80,7 @@ namespace WikiSpeak
             ArticleUserControl control = dependencyObject as ArticleUserControl;
             if (control != null)
             {
-                control.Button.SetValue(RoundButton.ImageSourceDependencyProperty, (Uri)(dependencyPropertyChangedEventArgs.NewValue));
+                control.Button.SetValue(BigRoundButton.ImageSourceDependencyProperty, (Uri)(dependencyPropertyChangedEventArgs.NewValue));
             }
         }
 
