@@ -16,7 +16,6 @@
         div#active_fragment
         {
         color: red;
-        font-weight: bolder;
         }
     </style>
     <script type="text/javascript">
@@ -37,28 +36,47 @@
                 NavigateToActiveFragment();
             }
         }
+
         // Put the active fragment at the top of the viewport
-        function NavigateToActiveFragment()
-        {
+        function NavigateToActiveFragment() {
             var active_fragment = document.getElementById("active_fragment");
-            if (active_fragment != null)
-            {
-                Scroll_To(active_fragment, 0);
+            if (active_fragment != null) {
+                element_to_scroll_to = active_fragment;
+                scroll_to_element();
             }
         }
-        // Scrolls an element smoothly to a position on the screen
-        function Scroll_To(elem, pos)
-        {
-            var distance = elem.offsetTop - window.pageYOffset;
-            var step = window.pageYOffset + distance * 0.3;
-            if (Math.abs(step - window.pageYOffset) < 2)
-            {
-                window.ScrollTo(window.pageXOffset, elem.offsetTop);
-            }
-            else
-            {
-                window.scrollTo(window.pageXOffset, step);
-                setTimeout(Scroll_To, 40, elem, pos);
+
+        // The element to scroll to
+        var element_to_scroll_to = null;
+
+        // This function is called to put the element_to_scroll_to element within the screen boundaries.
+        function scroll_to_element() {
+            if (element_to_scroll_to != null) {
+                var distance;
+                var elementTop = element_to_scroll_to.offsetTop;
+                var elementBottom = element_to_scroll_to.offsetTop + element_to_scroll_to.offsetHeight;
+                var windowTop = window.pageYOffset;
+                var windowBottom = window.outerHeight + window.pageYOffset;
+
+                if (elementTop < windowTop) {
+                    // element top is above the top of the screen
+                    // Make the element top travel downwards to the top of the screen
+                    distance = elementTop - windowTop;
+                }
+                else if (elementBottom > windowBottom) {
+                    // element bottom is below bottom of the screen
+                    // Make the element bottom travel upwards to the bottom of the screen, constrained by top not going above top of screen
+                    distance = Math.min(elementBottom - windowBottom, elementTop - windowTop);
+                }
+
+                // If the distance is small enough, jump to it. Otherwise travel a little ways and try again.
+                if (Math.abs(distance) < 10) {
+                    window.scrollTo(window.pageXOffset, windowTop + distance);
+                }
+                else if (Math.abs(distance) >= 10) {
+                    window.scrollTo(window.pageXOffset, windowTop + (distance * 0.3));
+                    setTimeout(scroll_to_element, 40);
+                }
             }
         }
     </script>

@@ -42,9 +42,43 @@
             var active_fragment = document.getElementById("active_fragment");
             if (active_fragment != null) {
                 //active_fragment.scrollIntoView(true);
-                Scroll_To(active_fragment, 10);
+                element_to_scroll_to = active_fragment;
+                scroll_to_element();
             }
         }
+        var element_to_scroll_to = null;
+        function scroll_to_element() {
+            if (element_to_scroll_to != null) {
+                var distance;
+                var elementTop = element_to_scroll_to.offsetTop;
+                var elementBottom = element_to_scroll_to.offsetTop + element_to_scroll_to.offsetHeight;
+                var windowTop = window.pageYOffset;
+                var windowBottom = window.outerHeight + window.pageYOffset;
+
+                if (elementTop < windowTop) {
+                    // element top is above the top of the screen
+                    // Make the element top travel downwards to the top of the screen
+                    distance = elementTop - windowTop;
+                }
+                else if (elementBottom > windowBottom) {
+                    // element bottom is below bottom of the screen
+                    // Make the element bottom travel upwards to the bottom of the screen, constrained by top not going above top of screen
+                    distance = Math.min(elementBottom - windowBottom, elementTop - windowTop);
+                }
+
+                // If the distance is small enough, jump to it. Otherwise travel a little ways and try again.
+                if (Math.abs(distance) < 10)
+                {
+                    window.scrollTo(window.pageXOffset, windowTop + distance);
+                }
+                else if (Math.abs(distance) >= 10)
+                {
+                    window.scrollTo(window.pageXOffset, windowTop + (distance * 0.3));
+                    setTimeout(scroll_to_element, 40);
+                }
+            }
+        }
+
         function Scroll_To(elem, pos)
         {
             var distance = elem.offsetTop - window.pageYOffset;
@@ -62,9 +96,114 @@
     </script>
 </head>
 <body>
-    <button onclick="NavigateToActiveFragment()">click meeeee</button>
+    <div style="position:fixed">
+        <button onclick="NavigateToActiveFragment()">click meeeee</button>
+    </div>
     <p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p>
-    <div id="active_fragment" name="34">content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br /></div>
+    <p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p>
+    <div id="active_fragment" name="34">content 1<br />
+content 2<br />
+content 3<br />
+content 4<br />
+content 5<br />
+content 6<br />
+content 7<br />
+content 8<br />
+content 9<br />
+content 10<br />
+content 11<br />
+content 12<br />
+content 13<br />
+content 14<br />
+content 15<br />
+content 16<br />
+    </div><div>
+content 17<br />
+content 18<br />
+content 19<br />
+content 20<br />
+content 21<br />
+content 22<br />
+content 23<br />
+content 24<br />
+content 25<br />
+content 26<br />
+content 27<br />
+content 28<br />
+content 29<br />
+content 30<br />
+content 31<br />
+content 32<br />
+content 33<br />
+content 34<br />
+content 35<br />
+content 36<br />
+content 37<br />
+content 38<br />
+content 39<br />
+content 40<br />
+content 41<br />
+content 42<br />
+content 43<br />
+content 44<br />
+content 45<br />
+content 46<br />
+content 47<br />
+content 48<br />
+content 49<br />
+content 50<br />
+content 51<br />
+content 52<br />
+content 53<br />
+content 54<br />
+content 55<br />
+content 56<br />
+content 57<br />
+content 58<br />
+content 59<br />
+content 60<br />
+content 61<br />
+content 62<br />
+content 63<br />
+content 64<br />
+content 65<br />
+content 66<br />
+content 67<br />
+content 68<br />
+content 69<br />
+content 70<br />
+content 71<br />
+content 72<br />
+content 73<br />
+content 74<br />
+content 75<br />
+content 76<br />
+content 77<br />
+content 78<br />
+content 79<br />
+content 80<br />
+content 81<br />
+content 82<br />
+content 83<br />
+content 84<br />
+content 85<br />
+content 86<br />
+content 87<br />
+content 88<br />
+content 89<br />
+content 90<br />
+content 91<br />
+content 92<br />
+content 93<br />
+content 94<br />
+content 95<br />
+content 96<br />
+content 97<br />
+content 98<br />
+content 99<br />
+content 100<br />
+</div>
+    <p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p>
     <p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p>
 </body>
 </html>
