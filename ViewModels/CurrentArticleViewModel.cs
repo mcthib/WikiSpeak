@@ -161,6 +161,17 @@ namespace WikiSpeak.ViewModels
         }
 
         /// <summary>
+        /// Gets the SSML representation of the current article
+        /// </summary>
+        public string SSML
+        {
+            get
+            {
+                return _fragments.SSML;
+            }
+        }
+
+        /// <summary>
         /// Refreshes the text of the article in the fragments list
         /// </summary>
         private void RefreshArticleText()

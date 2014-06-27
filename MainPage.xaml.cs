@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using WikiSpeak.Resources;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using Windows.Phone.Speech.Synthesis;
 
 namespace WikiSpeak
 {
@@ -165,8 +166,18 @@ namespace WikiSpeak
         /// <param name="e"></param>
         private void ButtonPlayPause_Click(object sender, RoutedEventArgs e)
         {
-            //App.MainViewModel.CurrentArticleViewModel.Rewind();
+            string ssml = App.MainViewModel.CurrentArticleViewModel.SSML;
 
+            SpeechSynthesizer synth = new SpeechSynthesizer();
+
+            synth.BookmarkReached += synth_BookmarkReached;
+
+            synth.SpeakSsmlAsync(ssml);
+        }
+
+        void synth_BookmarkReached(SpeechSynthesizer sender, SpeechBookmarkReachedEventArgs args)
+        {
+            
         }
 
         /// <summary>
@@ -177,7 +188,6 @@ namespace WikiSpeak
         private void ButtonFastForward_Click(object sender, RoutedEventArgs e)
         {
             App.MainViewModel.CurrentArticleViewModel.FastForward();
-
         }
         
         // Sample code for building a localized ApplicationBar

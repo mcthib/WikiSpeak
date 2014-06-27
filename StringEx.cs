@@ -135,6 +135,32 @@ namespace WikiSpeak
         }
 
         /// <summary>
+        /// Gets an SSML representation of the text
+        /// </summary>
+        public string SSML
+        {
+            get
+            {
+                StringBuilder content = new StringBuilder();
+
+                content.AppendLine("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>");
+                content.AppendLine("<speak xmlns=\"http://www.w3.org/2001/10/synthesis\" version=\"1.0\" xml:lang=\"en-US\">");
+
+                for (int fragment_index = 0; fragment_index < this.Count; fragment_index++)
+                {
+                    Fragment fragment = this[fragment_index];
+
+                    content.AppendFormat("<mark name=\"{0}\"/><p><s>{1}</s></p>", fragment_index, fragment.Text, CultureInfo.InvariantCulture);
+                    content.AppendLine();
+                }
+
+                content.Append("</speak>");
+
+                return content.ToString();
+            }
+        }
+
+        /// <summary>
         /// Gets the currently active fragment
         /// </summary>
         public Fragment ActiveFragment
