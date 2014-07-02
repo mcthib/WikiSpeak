@@ -172,13 +172,22 @@ namespace WikiSpeak
         }
 
         /// <summary>
-        /// Gets the currently active fragment index
+        /// Gets or sets the currently active fragment index
         /// </summary>
         public int ActiveFragmentIndex
         {
             get
             {
                 return _activeFragmentIndex;
+            }
+            set
+            {
+                int index = _activeFragmentIndex;
+                if ((index != value) && (value >= 0) && (value < this.Count))
+                {
+                    _activeFragmentIndex = value;
+                    FireActiveFragmentChangedEvent();
+                }
             }
         }
         private int _activeFragmentIndex = 0;

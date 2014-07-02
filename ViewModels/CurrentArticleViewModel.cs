@@ -28,6 +28,8 @@ namespace WikiSpeak.ViewModels
         void _fragments_ActiveFragmentChanged(object sender, FragmentEventArgs e)
         {
             NotifyPropertyChanged("ActiveFragmentIndex");
+            NotifyPropertyChanged("CanRewind");
+            NotifyPropertyChanged("CanFastForward");
         }
 
         /// <summary>
@@ -71,17 +73,9 @@ namespace WikiSpeak.ViewModels
         /// </summary>
         public void FastForward()
         {
-            bool canFastForward = _fragments.CanFastForward;
-            bool canRewind = _fragments.CanRewind;
-            
-            if (_fragments.FastForward() != canFastForward)
+            if (CanFastForward)
             {
-                NotifyPropertyChanged("CanFastForward");
-            }
-            
-            if (_fragments.CanRewind != canRewind)
-            {
-                NotifyPropertyChanged("CanRewind");
+                _fragments.FastForward();
             }
         }
 
@@ -90,17 +84,9 @@ namespace WikiSpeak.ViewModels
         /// </summary>
         public void Rewind()
         {
-            bool canRewind = _fragments.CanRewind;
-            bool canFastForward = _fragments.CanFastForward;
-
-            if (_fragments.Rewind() != canRewind)
+            if (CanRewind)
             {
-                NotifyPropertyChanged("CanRewind");
-            }
-
-            if (_fragments.CanFastForward != canFastForward)
-            {
-                NotifyPropertyChanged("CanFastForward");
+                _fragments.Rewind();
             }
         }
 
@@ -134,6 +120,10 @@ namespace WikiSpeak.ViewModels
             get
             {
                 return _fragments.ActiveFragmentIndex;
+            }
+            set
+            {
+                _fragments.ActiveFragmentIndex = value;
             }
         }
 

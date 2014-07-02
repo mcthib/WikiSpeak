@@ -119,6 +119,7 @@
       <DependentUpon>BigRoundButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="StringEx.cs" />
+    <Compile Include="ViewModels\SpeechViewModel.cs" />
     <Compile Include="ViewModels\ArticleViewModel.cs" />
     <Compile Include="ViewModels\AddArticleViewModel.cs" />
     <Compile Include="ViewModels\CurrentArticleViewModel.cs" />

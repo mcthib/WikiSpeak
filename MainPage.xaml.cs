@@ -177,7 +177,15 @@ namespace WikiSpeak
 
         void synth_BookmarkReached(SpeechSynthesizer sender, SpeechBookmarkReachedEventArgs args)
         {
-            
+            int bookmark;
+
+            if (int.TryParse(args.Bookmark, out bookmark))
+            {
+                Dispatcher.BeginInvoke(() =>
+                {
+                    App.MainViewModel.CurrentArticleViewModel.ActiveFragmentIndex = bookmark;
+                });                
+            }
         }
 
         /// <summary>
